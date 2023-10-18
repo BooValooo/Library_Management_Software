@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:Bibliothécaire: as Admin
+:Adhérent: as User
+
+package Identification {
+    (Identification adhérent) as id_client
+    (Identification bibliothécaire) as id_admin
+}
+
+package Utilisation_client {
+    (Emprunter un livre) as emprunt
+    (Retourner un livre) as retour
+    (Consulter profil) as profil
+    (Consulter emprunts) as consultation
+    (Rechercher un livre) as recherche
+    (Consulter livres disponibles)
+}
+
+package Utilisation_admin {
+    (Ajouter un livre) as ajout
+    (Supprimer un livre) as suppression
+    (Créer un adhérent) as création
+    (Supprimer un adhérent) as déserteur
+    (Accéder aux adhérents) as espion
+}
+
+
+User --> (id_client)
+Admin --> (id_admin)
+(id_client) <|-- (id_admin)
+
+(id_admin) --> Utilisation_admin
+(id_client) --> Utilisation_client
+
+Utilisation_client --> (Déconnexion)
+Utilisation_admin --> (Déconnexion)
+
+note bottom of (Déconnexion)
+    Une fois que l'utilisateur a réalisé toutes
+    les actions qu'il a à faire, il se déconnecte.
+end note
+
+note left of Identification
+    L'utilisateur s'identifie pour que le système
+    puisse lui donner accès aux fonctionnalités
+    disponibles pour ses privilèges.
+end note
+
+@enduml

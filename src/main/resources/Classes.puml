@@ -1,0 +1,90 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Utilisateur {
+Id (INT)
+Nom (STRING)
+Prénom (STRING)
+Adresse mail (STRING)
+Catégorie_Id (INT)
+Durée maximale d'emprunt (INT)
+Nombre maximal de livres empruntés simultanèment (INT)
+
+}
+
+class Bibliothèque {
+}
+
+class BDD{
+}
+
+class Edition {
+ISBN (INT)
+Editeur (STRING)
+Année d'édition (INT)
+Titre (STRING)
+Auteur_Id_List (INT LIST)
+Mots clés (STRING LIST)
+}
+
+class Livre {
+Id (INT)
+}
+
+class Auteur {
+Id (INT)
+Prénom (STRING)
+Nom (STRING)
+Année de naissance (INT)
+}
+
+class Emprunt {
+Date (DATE)
+Livre_Id (INT)
+Emprunteur_Id (INT)
+Rendu (BOOL)
+}
+
+class Identification {
+Id_Utilisateur (INT)
+Mot de passe (STRING)
+}
+
+class Adhérent {
+}
+
+Class Catégorie {
+Id (INT)
+Nom (STRING)
+Durée maximale d'emprunt référence (INT)
+Nombre maximal de livres empruntés simultanèment référence (INT)
+}
+
+class ListeRouge {
+Utilisateur_Id (INT)
+Date de radiation (DATE)
+}
+
+class Controller{
+}
+
+Bibliothécaire <|-- Utilisateur
+Adhérent <|- Utilisateur
+
+Livre "(0,*)" <|-- "1" Edition
+Utilisateur --o Bibliothèque
+Livre --o Bibliothèque
+
+Identification -- Utilisateur
+Utilisateur -- Catégorie
+Adhérent -- ListeRouge
+Auteur -- Edition
+Emprunt -- Utilisateur
+Emprunt -- Livre
+
+
+enum TimeUnit {
+Jours
+}
+
+@enduml
