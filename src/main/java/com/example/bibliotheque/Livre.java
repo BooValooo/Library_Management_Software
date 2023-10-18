@@ -11,7 +11,7 @@ public class Livre {
 
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:Database_bibliothèque.db");
+            c = DriverManager.getConnection("jdbc:sqlite:/home/administrateur/Documents/travail/Supervision de capteurs/tp-bibliotheque/src/Database_bibliothèque");
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();

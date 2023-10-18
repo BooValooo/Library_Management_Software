@@ -4,6 +4,7 @@ module com.example.bibliotheque {
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
+    requires java.sql;
 
     opens com.example.bibliotheque to javafx.fxml;
     exports com.example.bibliotheque;
