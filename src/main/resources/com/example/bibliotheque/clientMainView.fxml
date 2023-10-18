@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="374.0" prefWidth="769.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.ClientMainController">
+<VBox alignment="CENTER" prefHeight="580.0" prefWidth="1033.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.ClientMainController">
    <children>
-      <MenuBar prefHeight="30.0" prefWidth="769.0">
+      <MenuBar prefHeight="30.0" prefWidth="837.0">
         <menus>
           <Menu mnemonicParsing="false" text="Profil">
             <items>
@@ -15,14 +15,17 @@
                   <MenuItem mnemonicParsing="false" text="Consulter historique des emprunts" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Retour">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Rendre un livre" />
+                  <MenuItem mnemonicParsing="false" text="Déclarer une perte" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Aide">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="Rechercher un livre" />
+                  <MenuItem mnemonicParsing="false" text="Rendre un livre" />
+                  <MenuItem mnemonicParsing="false" text="Emprunter un livre" />
             </items>
           </Menu>
         </menus>
@@ -34,17 +37,20 @@
       </ToolBar>
       <SplitPane dividerPositions="0.29797979797979796" prefHeight="199.0" prefWidth="769.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="216.0">
                <children>
-                  <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" text="Emprunter livre sélectionné" />
+                  <Button layoutY="8.0" mnemonicParsing="false" text="Rechercher un livre" />
+                  <Button layoutX="3.0" layoutY="44.0" mnemonicParsing="false" text="Emprunter un livre" />
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="856.0">
                <children>
-                  <TableView layoutX="5.0" layoutY="7.0" prefHeight="187.0" prefWidth="525.0">
+                  <TableView layoutX="5.0" layoutY="-3.0" prefHeight="197.0" prefWidth="721.0">
                     <columns>
-                      <TableColumn prefWidth="198.0" text="Titre" />
-                      <TableColumn minWidth="2.0" prefWidth="172.0" text="Auteur" />
-                        <TableColumn prefWidth="125.0" text="Date de parution" />
+                      <TableColumn prefWidth="196.0" text="Titre" />
+                      <TableColumn minWidth="2.0" prefWidth="135.0" text="Auteur" />
+                        <TableColumn prefWidth="89.0" text="Année de parution" />
+                        <TableColumn prefWidth="128.0" text="Genre" />
+                        <TableColumn prefWidth="165.0" text="Editeur" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

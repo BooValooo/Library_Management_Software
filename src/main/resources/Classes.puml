@@ -8,7 +8,7 @@ Prénom (STRING)
 Adresse mail (STRING)
 Catégorie_Id (INT)
 Durée maximale d'emprunt (INT)
-Nombre maximal de livres empruntés simultanèment (INT)
+Nombre maximal empruntés (INT)
 
 }
 
