@@ -1,14 +1,15 @@
 package com.example.bibliotheque;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.*;
 
-public class Livre extends Edition {
+public class Identification {
+    Integer utilisateurId = null;
+    String utilisateurMail = null;
+    String hashMdp = null;
 
-    Integer id = null;
 
-    public static void main( String args[] ) {
+
+    public String getMdp(Integer utilisateurId) {
         Connection c = null;
         Statement stmt = null;
 
@@ -17,15 +18,20 @@ public class Livre extends Edition {
             c = DriverManager.getConnection("jdbc:sqlite:/home/administrateur/Documents/travail/Supervision de capteurs/tp-bibliotheque/src/Database_bibliothèque");
             System.out.println("Opened database successfully");
 
-            stmt = c.createStatement();
-            String sql = "INSERT INTO Livre (Id, ISBN)" + "VALUES (1,123456)";
-            stmt.executeUpdate(sql);
+            String sql = "SELECT Hash_MdP FROM Identification WHERE Utilisateur_id =?";
+            PreparedStatement prep_stmt = c.prepareStatement(sql);
+            prep_stmt.setInt(1,utilisateurId);
+            ResultSet rs = stmt.executeQuery(sql);
+            String mdp = rs.getString("Hash_MdP");
+            rs.close();
             stmt.close();
             c.close();
+            return mdp;
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-        System.out.println("Table edited successfully");
+        return null;
     }
 }
+
