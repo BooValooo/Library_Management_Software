@@ -25,9 +25,11 @@ public class AuthController {
     @FXML
     protected void onValidationClick() {
         Identification cred = new Identification();
-        cred.utilisateurId = Integer.valueOf(utilisateurIdInput.getText());
+        cred.utilisateurMail = utilisateurIdInput.getText();
         cred.hashMdp = utilisateurMdpInput.getText();
-        if (cred.hashMdp == cred.getMdp(cred.utilisateurId, c)) {
+        System.out.println(cred.getMdp(cred.utilisateurMail, c));
+        System.out.println(cred.hashMdp);
+        if (cred.hashMdp.equals(cred.getMdp(cred.utilisateurMail, c))) {
             System.out.println("Authentification réussie");
         } else {
             System.out.println("Authentification échouée");

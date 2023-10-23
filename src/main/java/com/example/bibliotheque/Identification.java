@@ -31,5 +31,28 @@ public class Identification {
         }
         return null;
     }
+
+    public String getMdp(String utilisateurMail, Connection c) {
+
+        try {
+            String sql = "SELECT Hash_MdP FROM Identification WHERE Utilisateur_Mail = ?";
+            PreparedStatement prep_stmt = c.prepareStatement(sql);
+            prep_stmt.setString(1, utilisateurMail);
+
+            ResultSet rs = prep_stmt.executeQuery();
+            String mdp = null;
+
+            if (rs.next()) {
+                mdp = rs.getString("Hash_MdP");
+            }
+
+            rs.close();
+            return mdp;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return null;
+    }
 }
 

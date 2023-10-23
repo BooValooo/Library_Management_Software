@@ -1,0 +1,16 @@
+.background {
+    -fx-background-color: #f0f0f0; /* Set the background color */
+}
+
+.input-field {
+    -fx-prompt-text-fill: #666666; /* Set the placeholder text color */
+    -fx-font-size: 14px; /* Set font size */
+    -fx-padding: 5px; /* Add padding for better spacing */
+}
+
+.primary-button {
+    -fx-background-color: #007bff; /* Set the background color */
+    -fx-text-fill: white; /* Set text color */
+    -fx-font-size: 16px; /* Set font size */
+    -fx-padding: 10px 20px; /* Add padding for a larger button */
+}

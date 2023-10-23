@@ -2,11 +2,26 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="361.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.AuthController">
    <children>
-      <TextField fx:id="utilisateurIdInput" layoutX="95.0" layoutY="130.0" promptText="Identifiant" />
-      <PasswordField fx:id="utilisateurMdpInput" layoutX="95.0" layoutY="200.0" promptText="Mot de passe" />
-      <Button fx:id="validerButton" layoutX="150.0" layoutY="274.0" mnemonicParsing="false" onAction="#onValidationClick" text="Valider" />
+      <TextField fx:id="utilisateurIdInput" layoutX="67.0" layoutY="147.0" prefHeight="31.0" prefWidth="227.0" promptText="Mail" />
+      <PasswordField fx:id="utilisateurMdpInput" layoutX="67.0" layoutY="233.0" prefHeight="31.0" prefWidth="227.0" promptText="Mot de passe" />
+      <Button fx:id="validerButton" layoutX="134.0" layoutY="311.0" mnemonicParsing="false" onAction="#onValidationClick" prefHeight="31.0" prefWidth="94.0" text="Valider" />
+      <Label layoutX="114.0" layoutY="45.0" text="Identifiez-vous">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="69.0" layoutY="122.0" text="Adresse mail">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="67.0" layoutY="208.0" text="Mot de passe">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
    </children>
 </AnchorPane>
