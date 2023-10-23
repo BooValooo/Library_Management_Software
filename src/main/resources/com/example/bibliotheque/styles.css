@@ -1,16 +1,23 @@
 .background {
-    -fx-background-color: #f0f0f0; /* Set the background color */
+    -fx-background-color: #b4a284; /* Set the background color */
 }
 
 .input-field {
-    -fx-prompt-text-fill: #666666; /* Set the placeholder text color */
+    -fx-prompt-text-fill: #0d1137; /* Set the placeholder text color */
     -fx-font-size: 14px; /* Set font size */
     -fx-padding: 5px; /* Add padding for better spacing */
+    -fx-background-radius: 10; /* Set the corner radius for smooth, rounded corners */
 }
 
 .primary-button {
-    -fx-background-color: #007bff; /* Set the background color */
-    -fx-text-fill: white; /* Set text color */
+    -fx-background-color: #0d1137; /* Set the background color */
+    -fx-text-fill: #b4a284; /* Set text color */
     -fx-font-size: 16px; /* Set font size */
     -fx-padding: 10px 20px; /* Add padding for a larger button */
+    -fx-background-radius: 10; /* Set the corner radius for smooth, rounded corners */
 }
+
+.label {
+    -fx-text-fill: #0d1137;
+}
+
