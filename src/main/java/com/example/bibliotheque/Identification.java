@@ -9,26 +9,24 @@ public class Identification {
 
 
 
-    public String getMdp(Integer utilisateurId) {
-        Connection c = null;
-        Statement stmt = null;
+    public String getMdp(Integer utilisateurId, Connection c) {
 
         try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:/home/administrateur/Documents/travail/Supervision de capteurs/tp-bibliotheque/src/Database_bibliothèque");
-            System.out.println("Opened database successfully");
-
-            String sql = "SELECT Hash_MdP FROM Identification WHERE Utilisateur_id =?";
+            String sql = "SELECT Hash_MdP FROM Identification WHERE Utilisateur_id = ?";
             PreparedStatement prep_stmt = c.prepareStatement(sql);
-            prep_stmt.setInt(1,utilisateurId);
-            ResultSet rs = stmt.executeQuery(sql);
-            String mdp = rs.getString("Hash_MdP");
+            prep_stmt.setInt(1, utilisateurId);
+
+            ResultSet rs = prep_stmt.executeQuery();
+            String mdp = null;
+
+            if (rs.next()) {
+                mdp = rs.getString("Hash_MdP");
+            }
+
             rs.close();
-            stmt.close();
-            c.close();
             return mdp;
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         return null;

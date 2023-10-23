@@ -1,7 +1,7 @@
 package com.example.bibliotheque;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Livre extends Edition {
@@ -12,20 +12,26 @@ public class Livre extends Edition {
         Connection c = null;
         Statement stmt = null;
 
+        c = BDDConnector.getConnection();
         try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:/home/administrateur/Documents/travail/Supervision de capteurs/tp-bibliotheque/src/Database_bibliothèque");
-            System.out.println("Opened database successfully");
-
             stmt = c.createStatement();
-            String sql = "INSERT INTO Livre (Id, ISBN)" + "VALUES (1,123456)";
-            stmt.executeUpdate(sql);
-            stmt.close();
-            c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+
+        String sql = "INSERT INTO Livre (Id, ISBN)" + "VALUES (2,123457)";
+        try {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
         System.out.println("Table edited successfully");
     }
 }
