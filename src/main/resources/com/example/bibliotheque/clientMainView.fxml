@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="580.0" prefWidth="1033.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.ClientMainController">
+<VBox fx:id="vbox" alignment="CENTER" prefHeight="580.0" prefWidth="1033.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.ClientMainController">
    <children>
       <MenuBar prefHeight="30.0" prefWidth="837.0">
         <menus>
           <Menu mnemonicParsing="false" text="Profil">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Fermer l'application" />
-              <MenuItem mnemonicParsing="false" text="Déconnexion" />
+                  <MenuItem fx:id="closeMenu" mnemonicParsing="false" onAction="#onCloseClick" text="Fermer l'application" />
+              <MenuItem fx:id="logOutMenu" mnemonicParsing="false" onAction="#onLogOutClick" text="Déconnexion" />
                   <MenuItem mnemonicParsing="false" text="Consulter emprunts en cours" />
                   <MenuItem mnemonicParsing="false" text="Consulter historique des emprunts" />
             </items>
@@ -32,15 +32,15 @@
       </MenuBar>
       <ToolBar prefHeight="21.0" prefWidth="769.0">
         <items>
-          <Button mnemonicParsing="false" text="Button" />
+          <Button fx:id="testButton" mnemonicParsing="false" onAction="#onTestClick" text="Test" />
         </items>
       </ToolBar>
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="199.0" prefWidth="769.0">
+      <SplitPane fx:id="pane" dividerPositions="0.29797979797979796" prefHeight="199.0" prefWidth="769.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="216.0">
                <children>
-                  <Button layoutY="8.0" mnemonicParsing="false" text="Rechercher un livre" />
-                  <Button layoutX="3.0" layoutY="44.0" mnemonicParsing="false" text="Emprunter un livre" />
+                  <Button fx:id="findBookButton" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#onSearchClick" text="Rechercher un livre" />
+                  <Button layoutX="17.0" layoutY="45.0" mnemonicParsing="false" text="Emprunter un livre" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="856.0">
                <children>

@@ -42,7 +42,7 @@ public class AuthController extends Controller{
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 mainController = fxmlLoader.getController();
-                stage.setTitle("Scène 1");
+                stage.setTitle("Bienvenue");
                 stage.setScene(new Scene(root1));
                 stage.show();       //open the new stage
 

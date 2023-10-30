@@ -17,7 +17,7 @@ public class MainApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("authView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 360, 400);
         scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
-        stage.setTitle("Hello!");
+        stage.setTitle("Authentification");
         stage.setScene(scene);
         stage.show();
     }

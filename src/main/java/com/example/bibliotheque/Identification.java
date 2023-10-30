@@ -13,12 +13,12 @@ public class Identification {
 
 
 
-    public String getMdp(Integer utilisateurId, Connection c) {
+    public String getMdp(Connection c) {
 
         try {
             String sql = "SELECT Hash_MdP FROM Identification WHERE Utilisateur_id = ?";
             PreparedStatement prep_stmt = c.prepareStatement(sql);
-            prep_stmt.setInt(1, utilisateurId);
+            prep_stmt.setInt(1, this.utilisateurId);
 
             ResultSet rs = prep_stmt.executeQuery();
             String mdp = null;
