@@ -4,11 +4,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//Représente l'objet physique livre, manifestation de l'objet conceptuel édition
 public class Livre extends Edition {
 
     Integer id = null;
 
-    public static void main( String args[] ) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    //Fonction de test, à effacer
+    public static void main(String args[] ) {
         Connection c = null;
         Statement stmt = null;
 

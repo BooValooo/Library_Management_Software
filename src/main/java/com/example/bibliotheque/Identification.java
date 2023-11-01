@@ -12,7 +12,31 @@ public class Identification {
     String hashMdp = null;
 
 
+    public Integer getUtilisateurId() {
+        return utilisateurId;
+    }
 
+    public void setUtilisateurId(Integer utilisateurId) {
+        this.utilisateurId = utilisateurId;
+    }
+
+    public String getUtilisateurMail() {
+        return utilisateurMail;
+    }
+
+    public void setUtilisateurMail(String utilisateurMail) {
+        this.utilisateurMail = utilisateurMail;
+    }
+
+    public String getHashMdp() {
+        return hashMdp;
+    }
+
+    public void setHashMdp(String hashMdp) {
+        this.hashMdp = hashMdp;
+    }
+
+    //Permet de récupérer le hash du MdP d'un utilisateur ayant donné son Id
     public String getMdp(Connection c) {
 
         try {
@@ -36,6 +60,7 @@ public class Identification {
         return null;
     }
 
+    //Permet de récupérer le hash du MdP d'un utilisateur ayant donné son mail
     public String getMdp(String utilisateurMail, Connection c) {
 
         try {
@@ -59,6 +84,7 @@ public class Identification {
         return null;
     }
 
+    //Les 2 fonctions suivantes permettent de hasher une chaîne de caractères (pour ne pas stocker des MdP en clair)
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException
     {
         // Static getInstance method is called with hashing SHA

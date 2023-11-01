@@ -31,6 +31,7 @@ public class AuthController extends Controller{
 
 
     @FXML
+    //Ouverture de la vue principale de la bibliothèque si les identifiants sont corrects (il faudra différencier 2 cas : bibliothécaire et autre)
     protected void onValidationClick() throws NoSuchAlgorithmException {
         Identification cred = new Identification();
         cred.utilisateurMail = utilisateurIdInput.getText();
@@ -42,6 +43,10 @@ public class AuthController extends Controller{
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 mainController = fxmlLoader.getController();
+
+                //Permet l'affichage des colonnes de la tableView des livres
+                mainController.initalizeTableView();
+
                 stage.setTitle("Bienvenue");
                 stage.setScene(new Scene(root1));
                 stage.show();       //open the new stage

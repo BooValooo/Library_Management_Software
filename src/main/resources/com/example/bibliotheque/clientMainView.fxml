@@ -44,13 +44,8 @@
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="856.0">
                <children>
-                  <TableView layoutX="5.0" layoutY="-3.0" prefHeight="197.0" prefWidth="721.0">
+                  <TableView fx:id="tableViewLivres" layoutX="5.0" layoutY="-3.0" prefHeight="197.0" prefWidth="721.0">
                     <columns>
-                      <TableColumn prefWidth="196.0" text="Titre" />
-                      <TableColumn minWidth="2.0" prefWidth="135.0" text="Auteur" />
-                        <TableColumn prefWidth="89.0" text="Année de parution" />
-                        <TableColumn prefWidth="128.0" text="Genre" />
-                        <TableColumn prefWidth="165.0" text="Editeur" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
