@@ -25,11 +25,7 @@ public class ClientMainController extends Controller {
     @FXML
     private MenuItem logOutMenu;
     @FXML
-    private Button findBookButton;
-    @FXML
     private VBox vbox;
-    @FXML
-    private Button testButton;
     @FXML
     private TableView<Livre> tableViewLivres;
     private AuthController authController = null;
@@ -54,7 +50,7 @@ public class ClientMainController extends Controller {
         stage.show();       //open the new stage
 
 
-        Stage currentStage = (Stage) findBookButton.getScene().getWindow();
+        Stage currentStage = (Stage) vbox.getScene().getWindow();
         currentStage.close();          //close the current stage
     }
 
@@ -71,14 +67,14 @@ public class ClientMainController extends Controller {
         stage.show();       //open the new stage
 
 
-        Stage currentStage = (Stage) findBookButton.getScene().getWindow();
+        Stage currentStage = (Stage) vbox.getScene().getWindow();
         currentStage.close();          //close the current stage
     }
 
 
     @FXML
     //Initialise la tableView
-    protected void initalizeTableView() {
+    protected void initalizeTableView() throws SQLException {
         //Création de colonnes pour la tableView
         TableColumn<Livre, String> titreCol = new TableColumn<>("Titre");
         titreCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTitre()));
@@ -97,6 +93,33 @@ public class ClientMainController extends Controller {
 
         // Ajout des colonnes à la TableView
         tableViewLivres.getColumns().addAll(titreCol, auteursCol, anneeEditionCol, motCle1Col, editeurCol);
+
+
+        // Requête pour récupérer les livres
+        String query = "SELECT ISBN, Titre, Année_Edition, Mot_Clé_1, Editeur FROM Edition";
+        ResultSet resultSet = c.createStatement().executeQuery(query);
+
+        List<Livre> livres = new ArrayList<>();
+
+        // Création de la liste de livres à partir du résultat de la requête
+        while (resultSet.next()) {
+            Livre livre = new Livre();
+            livre.setTitre(resultSet.getString("titre"));
+            livre.setIsbn(resultSet.getInt("ISBN"));
+            livre.setMotCle1(resultSet.getString("Mot_Clé_1"));
+            livre.setAnneeEdition(resultSet.getInt("Année_Edition"));
+            livre.setEditeur(resultSet.getString("Editeur"));
+            livre.setAuteurs(livre.getAuthors(c));
+
+
+            livres.add(livre);
+        }
+
+        // Création d'une ObservableList à partir de la liste de livres
+        ObservableList<Livre> livresObservable = FXCollections.observableArrayList(livres);
+
+        // MàJ de la tableView
+        tableViewLivres.setItems(livresObservable);
     }
     @FXML
     //Affiche les livres de la bibliothèque

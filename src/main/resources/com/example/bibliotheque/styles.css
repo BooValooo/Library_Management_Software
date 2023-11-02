@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: #b4a284; /* Set the background color */
+    -fx-background-color: #b4a284;
 }
 
 .input-field {
@@ -18,6 +18,73 @@
 }
 
 .label {
+    -fx-text-fill: #0d1137;
+}
+
+/*Menu*/
+
+.menu-bar {
+    -fx-background-color: #b4a284;
+}
+
+.menu-bar .menu:hover {
+    -fx-background-color: #96866e;
+}
+
+.menu-bar .menu:focused {
+    -fx-background-color: #96866e;
+}
+
+.menu-item .label {
+    -fx-text-fill: #0d1137;
+}
+
+.menu-item:focused {
+    -fx-background-color: #96866e;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: #0d1137;
+}
+
+.context-menu {
+    -fx-background-color: #b4a284;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+}
+
+
+/* TableView */
+
+.table-view {
+    -fx-background-color: #b4a284;
+}
+
+/* Styles pour les lignes impaires */
+.table-row-cell:odd {
+    -fx-background-color: #96866e;
+    -fx-text-fill: #0d1137;
+}
+
+/* Styles pour les lignes paires */
+.table-row-cell:even {
+    -fx-background-color: #b4a284;
+    -fx-text-fill: #0d1137;
+}
+
+.table-view .column-header {
+    -fx-background-color: #96866e;
+    -fx-text-fill: #0d1137;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #96866e;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #6e6351;
     -fx-text-fill: #0d1137;
 }
 

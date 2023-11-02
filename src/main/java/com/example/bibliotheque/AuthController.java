@@ -48,7 +48,9 @@ public class AuthController extends Controller{
                 mainController.initalizeTableView();
 
                 stage.setTitle("Bienvenue");
-                stage.setScene(new Scene(root1));
+                Scene scene = new Scene(root1);
+                scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+                stage.setScene(scene);
                 stage.show();       //open the new stage
 
 
@@ -58,6 +60,8 @@ public class AuthController extends Controller{
             }
             catch(IOException e) {
                 e.printStackTrace();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         } else {
             System.out.println("Authentification échouée");

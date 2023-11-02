@@ -3,16 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbox" alignment="CENTER" prefHeight="580.0" prefWidth="1033.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.ClientMainController">
+<VBox fx:id="vbox" alignment="CENTER" prefHeight="462.0" prefWidth="1033.0" spacing="20.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.ClientMainController">
    <children>
-      <MenuBar prefHeight="30.0" prefWidth="837.0">
+      <MenuBar prefHeight="33.0" prefWidth="1033.0">
         <menus>
           <Menu mnemonicParsing="false" text="Profil">
             <items>
                   <MenuItem fx:id="closeMenu" mnemonicParsing="false" onAction="#onCloseClick" text="Fermer l'application" />
               <MenuItem fx:id="logOutMenu" mnemonicParsing="false" onAction="#onLogOutClick" text="Déconnexion" />
-                  <MenuItem mnemonicParsing="false" text="Consulter emprunts en cours" />
-                  <MenuItem mnemonicParsing="false" text="Consulter historique des emprunts" />
+                  <MenuItem mnemonicParsing="false" text="Consulter les emprunts en cours" />
+                  <MenuItem mnemonicParsing="false" text="Consulter l'historique des emprunts" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Retour">
@@ -21,30 +21,28 @@
                   <MenuItem mnemonicParsing="false" text="Déclarer une perte" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Aide">
+          <Menu mnemonicParsing="false" text="Emprunter">
             <items>
-              <MenuItem mnemonicParsing="false" text="Rechercher un livre" />
-                  <MenuItem mnemonicParsing="false" text="Rendre un livre" />
                   <MenuItem mnemonicParsing="false" text="Emprunter un livre" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Rechercher">
+              <items>
+              <MenuItem mnemonicParsing="false" onAction="#onSearchClick" text="Rechercher un livre" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Test">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onTestClick" text="Test" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
-      <ToolBar prefHeight="21.0" prefWidth="769.0">
+      <SplitPane fx:id="pane" prefHeight="460.0" prefWidth="1033.0" styleClass="background">
         <items>
-          <Button fx:id="testButton" mnemonicParsing="false" onAction="#onTestClick" text="Test" />
-        </items>
-      </ToolBar>
-      <SplitPane fx:id="pane" dividerPositions="0.29797979797979796" prefHeight="199.0" prefWidth="769.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="216.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="1031.0" styleClass="background">
                <children>
-                  <Button fx:id="findBookButton" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#onSearchClick" text="Rechercher un livre" />
-                  <Button layoutX="17.0" layoutY="45.0" mnemonicParsing="false" text="Emprunter un livre" />
-               </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="856.0">
-               <children>
-                  <TableView fx:id="tableViewLivres" layoutX="5.0" layoutY="-3.0" prefHeight="197.0" prefWidth="721.0">
+                  <TableView fx:id="tableViewLivres" layoutY="-3.0" prefHeight="415.0" prefWidth="1031.0">
                     <columns>
                     </columns>
                   </TableView>
