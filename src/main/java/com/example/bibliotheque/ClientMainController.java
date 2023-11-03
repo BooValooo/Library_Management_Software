@@ -27,50 +27,9 @@ public class ClientMainController extends Controller {
     @FXML
     private VBox vbox;
     @FXML
-    private TableView<Livre> tableViewLivres;
+    protected TableView<Livre> tableViewLivres;
     private AuthController authController = null;
     private SearchController searchController = null;
-
-
-    @FXML
-    //Ferme l'application
-    protected void onCloseClick() {
-        System.exit(0);
-    }
-    @FXML
-    //Déconnecte l'utilisateur et retourne sur la page d'authentification
-    protected void onLogOutClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("authView.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        authController = fxmlLoader.getController();
-        stage.setTitle("Authentification");
-        Scene scene = new Scene(root1);
-        scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
-        stage.setScene(scene);
-        stage.show();       //open the new stage
-
-
-        Stage currentStage = (Stage) vbox.getScene().getWindow();
-        currentStage.close();          //close the current stage
-    }
-
-    @FXML
-    //Ouvre une vue de recherche de livre, ferme la vue actuelle
-    protected void onSearchClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchView.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        searchController = fxmlLoader.getController();
-        stage.setTitle("Recherche d'un ouvrage");
-        Scene scene = new Scene(root1);
-        scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
-        stage.setScene(scene);
-        stage.show();       //open the new stage
-
-
-        Stage currentStage = (Stage) vbox.getScene().getWindow();
-        currentStage.close();          //close the current stage
-    }
-
 
     @FXML
     //Initialise la tableView
@@ -125,7 +84,7 @@ public class ClientMainController extends Controller {
     //Affiche les livres de la bibliothèque
     protected void onTestClick() throws SQLException {
 
-            // Requête pour récupérer les livres
+            // Requête pour récupérer tous les livres
             String query = "SELECT ISBN, Titre, Année_Edition, Mot_Clé_1, Editeur FROM Edition";
             ResultSet resultSet = c.createStatement().executeQuery(query);
 
@@ -134,7 +93,7 @@ public class ClientMainController extends Controller {
             // Création de la liste de livres à partir du résultat de la requête
             while (resultSet.next()) {
                 Livre livre = new Livre();
-                livre.setTitre(resultSet.getString("titre"));
+                livre.setTitre(resultSet.getString("Titre"));
                 livre.setIsbn(resultSet.getInt("ISBN"));
                 livre.setMotCle1(resultSet.getString("Mot_Clé_1"));
                 livre.setAnneeEdition(resultSet.getInt("Année_Edition"));
@@ -151,6 +110,53 @@ public class ClientMainController extends Controller {
             // MàJ de la tableView
             tableViewLivres.setItems(livresObservable);
 
+    }
+
+    //Affiche les livres qui sont le résultat d'une recherche (voir SearchController)
+    protected void majLivres(ObservableList<Livre> livresObservable) {
+        tableViewLivres.setItems(livresObservable);
+    }
+
+    @FXML
+    //Ferme l'application
+    protected void onCloseClick() {
+        System.exit(0);
+    }
+    @FXML
+    //Déconnecte l'utilisateur et retourne sur la page d'authentification
+    protected void onLogOutClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("authView.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        authController = fxmlLoader.getController();
+        stage.setTitle("Authentification");
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();       //open the new stage
+
+
+        Stage currentStage = (Stage) vbox.getScene().getWindow();
+        currentStage.close();          //close the current stage
+    }
+
+    @FXML
+    //Ouvre une vue de recherche de livre, ferme la vue actuelle
+    protected void onSearchClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchView.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        searchController = fxmlLoader.getController();
+        searchController.mainController = this;
+        stage.setTitle("Recherche d'un ouvrage");
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();       //open the new stage
+
+
+        /*
+        Stage currentStage = (Stage) vbox.getScene().getWindow();
+        currentStage.close();          //close the current stage
+         */
     }
 }
 

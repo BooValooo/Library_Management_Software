@@ -121,8 +121,11 @@ public class Edition {
                 String prenom = rs.getString("Prénom");
                 String nom  = rs.getString("Nom");
 
+                /*
                 System.out.println( "NAME = " + prenom + " " + nom );
                 System.out.println();
+                 */
+
                 auteurs.add(prenom + " " + nom);
 
             }
