@@ -9,12 +9,22 @@ public class Livre extends Edition {
 
     Integer id = null;
 
+    Boolean disponible = null;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Boolean getDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(Boolean disponible) {
+        this.disponible = disponible;
     }
 
     //Fonction de test, à effacer

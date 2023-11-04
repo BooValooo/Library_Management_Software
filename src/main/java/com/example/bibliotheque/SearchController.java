@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 import java.security.NoSuchAlgorithmException;
@@ -21,6 +22,8 @@ public class SearchController extends Controller {
     private TextField auteurInput;
     @FXML
     private TextField genreInput;
+    @FXML
+    private CheckBox livresDisponibles;
     protected ClientMainController mainController;
 
     @FXML
@@ -28,12 +31,17 @@ public class SearchController extends Controller {
         String titre = titreInput.getText();
         String auteur = auteurInput.getText();
         String genre = genreInput.getText();
+        Boolean isLivresDisponiblesSelected = livresDisponibles.isSelected();
+        String livresDispos = "0";
+        if (isLivresDisponiblesSelected) {livresDispos = "1";}
+
 
         // Requête pour récupérer tous les livres respectant la recherche
         String query = "SELECT DISTINCT e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur FROM Edition AS e " +
                 "JOIN Association_Auteurs_Edition AS aae ON e.ISBN = aae.ISBN " +
                 "JOIN Auteur AS a ON aae.Auteur_Id = a.Id " +
-                "WHERE ((e.Titre LIKE '%" + titre +"%') AND (a.Nom LIKE '%" +auteur+ "%') AND (e.Mot_Clé_1 LIKE '%" +genre+ "%' OR e.Mot_Clé_2 LIKE '%"+genre+"%' OR e.Mot_Clé_3 LIKE '%" +genre+ "%' OR e.Mot_Clé_4 LIKE '%" +genre+ "%' OR e.Mot_Clé_5 LIKE '%" +genre+ "%'))";
+                "JOIN Livre AS l ON l.ISBN = e.ISBN " +
+                "WHERE ((e.Titre LIKE '%" + titre +"%') AND (a.Nom LIKE '%" +auteur+ "%') AND (l.Disponible >= " + livresDispos + ") AND (e.Mot_Clé_1 LIKE '%" +genre+ "%' OR e.Mot_Clé_2 LIKE '%"+genre+"%' OR e.Mot_Clé_3 LIKE '%" +genre+ "%' OR e.Mot_Clé_4 LIKE '%" +genre+ "%' OR e.Mot_Clé_5 LIKE '%" +genre+ "%'))";
         ResultSet resultSet = c.createStatement().executeQuery(query);
 
         List<Livre> livres = new ArrayList<>();

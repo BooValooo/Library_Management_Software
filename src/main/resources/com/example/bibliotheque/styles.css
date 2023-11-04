@@ -21,6 +21,10 @@
     -fx-text-fill: #0d1137;
 }
 
+.check-box {
+    -fx-text-fill: #0d1137;
+}
+
 /*Menu*/
 
 .menu-bar {

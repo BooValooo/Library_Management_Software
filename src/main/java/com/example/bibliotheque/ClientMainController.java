@@ -44,11 +44,12 @@ public class ClientMainController extends Controller {
         TableColumn<Livre, Integer> anneeEditionCol = new TableColumn<>("Année d'édition");
         anneeEditionCol.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getAnneeEdition()));
 
-        TableColumn<Livre, String> motCle1Col = new TableColumn<>("Genre");
+        TableColumn<Livre, String> motCle1Col = new TableColumn<>("Genre principal"); //Le genre principal correspond au mot clé 1
         motCle1Col.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMotCle1()));
 
         TableColumn<Livre, String> editeurCol = new TableColumn<>("Editeur");
         editeurCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEditeur()));
+
 
         // Ajout des colonnes à la TableView
         tableViewLivres.getColumns().addAll(titreCol, auteursCol, anneeEditionCol, motCle1Col, editeurCol);
