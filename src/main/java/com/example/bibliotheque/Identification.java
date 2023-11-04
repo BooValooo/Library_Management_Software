@@ -84,6 +84,28 @@ public class Identification {
         return null;
     }
 
+    public Integer getId(Connection c) {
+        try {
+            String sql = "SELECT Utilisateur_Id FROM Identification WHERE Utilisateur_Mail = ?";
+            PreparedStatement prep_stmt = c.prepareStatement(sql);
+            prep_stmt.setString(1, this.utilisateurMail);
+
+            ResultSet rs = prep_stmt.executeQuery();
+            Integer id = null;
+
+            if (rs.next()) {
+                id = rs.getInt("Utilisateur_Id");
+            }
+
+            rs.close();
+            return id;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return null;
+    }
+
     //Les 2 fonctions suivantes permettent de hasher une chaîne de caractères (pour ne pas stocker des MdP en clair)
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException
     {

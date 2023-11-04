@@ -9,4 +9,5 @@ public abstract class Controller {
 
     private Stage stage = new Stage();
     static Connection c = BDDConnector.getConnection();
+    static Integer utilisateurId = null;
 }

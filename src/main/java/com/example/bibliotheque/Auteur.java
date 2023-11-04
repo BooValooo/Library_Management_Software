@@ -5,7 +5,7 @@ public class Auteur {
     String prenom = null;
     String nom = null;
     Integer anneeNaissance = null;
-    String pseudonyme = null;
+
 
     public Integer getId() {
         return id;
@@ -39,11 +39,4 @@ public class Auteur {
         this.anneeNaissance = anneeNaissance;
     }
 
-    public String getPseudonyme() {
-        return pseudonyme;
-    }
-
-    public void setPseudonyme(String pseudonyme) {
-        this.pseudonyme = pseudonyme;
-    }
 }

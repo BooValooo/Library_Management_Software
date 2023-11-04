@@ -21,19 +21,16 @@ import java.util.List;
 public class ClientMainController extends Controller {
     private Stage stage = new Stage();
     @FXML
-    private MenuItem closeMenu;
-    @FXML
-    private MenuItem logOutMenu;
-    @FXML
     private VBox vbox;
     @FXML
     protected TableView<Livre> tableViewLivres;
     private AuthController authController = null;
     private SearchController searchController = null;
+    private EmpruntsController empruntsController = null;
 
     @FXML
     //Initialise la tableView
-    protected void initalizeTableView() throws SQLException {
+    protected void initalizeTableViewLivres() throws SQLException {
         //Création de colonnes pour la tableView
         TableColumn<Livre, String> titreCol = new TableColumn<>("Titre");
         titreCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTitre()));
@@ -81,43 +78,10 @@ public class ClientMainController extends Controller {
         // MàJ de la tableView
         tableViewLivres.setItems(livresObservable);
     }
-    @FXML
-    //Affiche les livres de la bibliothèque
-    protected void onTestClick() throws SQLException {
-
-            // Requête pour récupérer tous les livres
-            String query = "SELECT ISBN, Titre, Année_Edition, Mot_Clé_1, Editeur FROM Edition";
-            ResultSet resultSet = c.createStatement().executeQuery(query);
-
-            List<Livre> livres = new ArrayList<>();
-
-            // Création de la liste de livres à partir du résultat de la requête
-            while (resultSet.next()) {
-                Livre livre = new Livre();
-                livre.setTitre(resultSet.getString("Titre"));
-                livre.setIsbn(resultSet.getInt("ISBN"));
-                livre.setMotCle1(resultSet.getString("Mot_Clé_1"));
-                livre.setAnneeEdition(resultSet.getInt("Année_Edition"));
-                livre.setEditeur(resultSet.getString("Editeur"));
-                livre.setAuteurs(livre.getAuthors(c));
 
 
-                livres.add(livre);
-            }
 
-            // Création d'une ObservableList à partir de la liste de livres
-            ObservableList<Livre> livresObservable = FXCollections.observableArrayList(livres);
-
-            // MàJ de la tableView
-            tableViewLivres.setItems(livresObservable);
-
-    }
-
-    //Affiche les livres qui sont le résultat d'une recherche (voir SearchController)
-    protected void majLivres(ObservableList<Livre> livresObservable) {
-        tableViewLivres.setItems(livresObservable);
-    }
-
+    /* Menu Profil */
     @FXML
     //Ferme l'application
     protected void onCloseClick() {
@@ -128,6 +92,10 @@ public class ClientMainController extends Controller {
     protected void onLogOutClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("authView.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
+
+        //Ferme la session de manière effective
+        Controller.utilisateurId = null;
+
         authController = fxmlLoader.getController();
         stage.setTitle("Authentification");
         Scene scene = new Scene(root1);
@@ -141,6 +109,23 @@ public class ClientMainController extends Controller {
     }
 
     @FXML
+    //Ouvre une fenêtre permettant à l'utilisateur de consulter ses emprunts en cours et passés
+    protected void onEmpruntsClick() throws IOException, SQLException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("empruntsView.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        empruntsController = fxmlLoader.getController();
+        empruntsController.initalizeTableViewEmprunts();
+        stage.setTitle("Emprunts");
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();       //open the new stage
+    }
+
+
+
+    /* Menu Rechercher */
+    @FXML
     //Ouvre une vue de recherche de livre, ferme la vue actuelle
     protected void onSearchClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchView.fxml"));
@@ -153,11 +138,15 @@ public class ClientMainController extends Controller {
         stage.setScene(scene);
         stage.show();       //open the new stage
 
+    }
 
-        /*
-        Stage currentStage = (Stage) vbox.getScene().getWindow();
-        currentStage.close();          //close the current stage
-         */
+
+
+    /* TEST */
+    @FXML
+    //Affiche les livres de la bibliothèque
+    protected void onTestClick() {
+        System.out.println(this.utilisateurId);
     }
 }
 

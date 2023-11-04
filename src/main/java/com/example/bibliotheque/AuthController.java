@@ -44,8 +44,11 @@ public class AuthController extends Controller{
                 Parent root1 = (Parent) fxmlLoader.load();
                 mainController = fxmlLoader.getController();
 
+                //Permet de créer une session active pour l'utilisateur qui vient de se connecter
+                Controller.utilisateurId = cred.getId(c);
+
                 //Permet l'affichage des colonnes de la tableView des livres
-                mainController.initalizeTableView();
+                mainController.initalizeTableViewLivres();
 
                 stage.setTitle("Bienvenue");
                 Scene scene = new Scene(root1);
