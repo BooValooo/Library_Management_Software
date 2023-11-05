@@ -67,7 +67,7 @@ public class AuthController extends Controller{
                 throw new RuntimeException(e);
             }
         } else {
-            System.out.println("Authentification échouée");
+            afficherMessageErreur("Erreur", "Authentification échouée", "Si vous ne vous rappelez plus de vos identifiants, veuillez contacter le bibliothécaire.");
         }
     }
 }

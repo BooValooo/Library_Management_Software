@@ -92,3 +92,30 @@
     -fx-text-fill: #0d1137;
 }
 
+/* Boite de dialogue */
+
+.alert .dialog-pane .header-panel {
+    -fx-background-color: #96866e; /* Couleur de fond */
+    -fx-text-fill: #0d1137; /* Couleur du texte */
+    -fx-font-size: 18px; /* Taille de la police */
+}
+
+.alert {
+    -fx-background-color: #96866e;
+}
+
+.alert .header-panel {
+    -fx-background-color: #96866e; /* Couleur de fond */
+    -fx-text-fill: #0d1137; /* Couleur du texte */
+    -fx-font-size: 18px; /* Taille de la police */
+}
+
+.alert .content {
+    -fx-background-color: #96866e;
+    -fx-font-size: 14px; /* Taille de la police pour le contenu */
+}
+
+.alert .button-bar {
+    -fx-background-color: #96866e; /* Couleur de fond de la barre de boutons */
+}
+

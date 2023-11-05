@@ -12,6 +12,7 @@
                   <MenuItem fx:id="closeMenu" mnemonicParsing="false" onAction="#onCloseClick" text="Fermer l'application" />
               <MenuItem fx:id="logOutMenu" mnemonicParsing="false" onAction="#onLogOutClick" text="Déconnexion" />
                   <MenuItem mnemonicParsing="false" onAction="#onEmpruntsClick" text="Consulter les emprunts" />
+                  <MenuItem mnemonicParsing="false" text="Editer mot de passe" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Retour">
