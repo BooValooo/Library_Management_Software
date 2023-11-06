@@ -42,7 +42,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="1031.0" styleClass="background">
                <children>
-                  <TableView fx:id="tableViewLivres" layoutY="-3.0" prefHeight="415.0" prefWidth="1031.0">
+                  <TableView fx:id="tableViewLivres" layoutY="-3.0" onContextMenuRequested="#empruntClick" prefHeight="415.0" prefWidth="1031.0">
                     <columns>
                     </columns>
                   </TableView>

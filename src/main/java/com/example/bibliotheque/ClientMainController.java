@@ -9,12 +9,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,13 +51,19 @@ public class ClientMainController extends Controller {
         TableColumn<Livre, String> editeurCol = new TableColumn<>("Editeur");
         editeurCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEditeur()));
 
+        TableColumn<Livre,String> dispoCol = new TableColumn<>("Livre disponible");
+        dispoCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDisponibleString()));
+
 
         // Ajout des colonnes à la TableView
-        tableViewLivres.getColumns().addAll(titreCol, auteursCol, anneeEditionCol, motCle1Col, editeurCol);
+        tableViewLivres.getColumns().addAll(titreCol, auteursCol, anneeEditionCol, motCle1Col, editeurCol, dispoCol);
 
+        majTableViewLivres();
+    }
 
+    protected void majTableViewLivres() throws SQLException {
         // Requête pour récupérer les livres
-        String query = "SELECT ISBN, Titre, Année_Edition, Mot_Clé_1, Editeur FROM Edition";
+        String query = "SELECT l.Id, e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible FROM Edition AS e JOIN Livre AS l ON e.ISBN = l.ISBN";
         ResultSet resultSet = c.createStatement().executeQuery(query);
 
         List<Livre> livres = new ArrayList<>();
@@ -61,7 +71,9 @@ public class ClientMainController extends Controller {
         // Création de la liste de livres à partir du résultat de la requête
         while (resultSet.next()) {
             Livre livre = new Livre();
-            livre.setTitre(resultSet.getString("titre"));
+            livre.setId(resultSet.getInt("Id"));
+            livre.setDisponible(resultSet.getBoolean("Disponible"));
+            livre.setTitre(resultSet.getString("Titre"));
             livre.setIsbn(resultSet.getInt("ISBN"));
             livre.setMotCle1(resultSet.getString("Mot_Clé_1"));
             livre.setAnneeEdition(resultSet.getInt("Année_Edition"));
@@ -78,7 +90,6 @@ public class ClientMainController extends Controller {
         // MàJ de la tableView
         tableViewLivres.setItems(livresObservable);
     }
-
 
 
     /* Menu Profil */
@@ -123,6 +134,58 @@ public class ClientMainController extends Controller {
     }
 
 
+    // Permet d'emprunter un livre
+    @FXML
+    protected void empruntClick() {
+
+        // Crée un menu contextuel
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem emprunterLivre = new MenuItem("Emprunter");
+        contextMenu.getItems().addAll(emprunterLivre);
+
+        // Définit un gestionnaire d'événements pour afficher le menu contextuel lors du clic droit
+        tableViewLivres.setOnContextMenuRequested(event -> {
+            contextMenu.show(tableViewLivres, event.getScreenX(), event.getScreenY());
+        });
+
+        // Associe des actions aux éléments du menu
+        emprunterLivre.setOnAction(e -> {
+            Livre selectedLivre = tableViewLivres.getSelectionModel().getSelectedItem();
+            if (!selectedLivre.disponible) {afficherMessageErreur("Erreur", "Livre non disponible", "Ce livre n'est pas disponible actuellement.");
+                return;}
+            else {
+                try {
+                    // Obtenir la date du jour
+                    LocalDate dateDuJour = LocalDate.now();
+
+                    // Formater la date en "aaaa-MM-jj"
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+                    String dateFormatee = dateDuJour.format(formatter);
+
+                    // Obtenir la date de retour
+                    Utilisateur user = new Utilisateur();
+                    user.id = utilisateurId;
+                    String dateFin = user.getDateLimiteEmprunt(c,dateDuJour);
+
+                    selectedLivre.emprunt(c, utilisateurId, selectedLivre.id, dateFormatee, dateFin);
+
+                    majTableViewLivres();
+                    afficherMessageSucces("Succès","Livre emprunté", "Vous avez emprunté le livre " + selectedLivre.titre + " avec succès.");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
+
+        // Ferme le menu contextuel
+        tableViewLivres.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                event -> {
+                    if (event.getButton() == MouseButton.PRIMARY) { // Vérifiez que le clic est un clic gauche
+                        contextMenu.hide(); // Ferme le menu contextuel
+                    }
+                });
+    }
 
     /* Menu Rechercher */
     @FXML

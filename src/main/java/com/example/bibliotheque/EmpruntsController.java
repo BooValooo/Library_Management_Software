@@ -122,6 +122,7 @@ public class EmpruntsController extends Controller {
                 try {
                     selectedEmprunt.retour(c);
                     majTableViewEmprunts();
+                    afficherMessageSucces("Succès", "Livre Rendu", "Vous avez rendu le livre " + selectedEmprunt.titre + " avec succès.");
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

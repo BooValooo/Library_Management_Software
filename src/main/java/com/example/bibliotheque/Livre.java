@@ -1,6 +1,8 @@
 package com.example.bibliotheque;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 //Représente l'objet physique livre, manifestation de l'objet conceptuel édition
 public class Livre extends Edition {
@@ -20,6 +22,8 @@ public class Livre extends Edition {
     public Boolean getDisponible() {
         return disponible;
     }
+
+    public String getDisponibleString() {if (this.disponible) {return("oui");} else {return("non");}}
 
     public void setDisponible(Boolean disponible) {
         this.disponible = disponible;
@@ -47,6 +51,22 @@ public class Livre extends Edition {
             System.exit(0);
         }
         return null;
+    }
+
+    // Permet de gérer l'emprunt d'un livre
+    protected void emprunt(Connection c, Integer utilisateurId, Integer livreId, String dateDebut, String dateLimiteRendu) throws SQLException {
+        String query = "UPDATE Livre SET Disponible = 0 WHERE Id = ?";
+        PreparedStatement prep_stmt = c.prepareStatement(query);
+        prep_stmt.setInt(1, this.id);
+        prep_stmt.executeUpdate();
+
+        String queryTwo = "INSERT INTO Emprunt (Utilisateur_Id, Livre_Id, Date_Début, Date_Limite_Rendu, Rendu) VALUES (?, ?, ?, ?, 0)";
+        PreparedStatement preparedStatement = c.prepareStatement(queryTwo);
+        preparedStatement.setInt(1, utilisateurId);
+        preparedStatement.setInt(2, livreId);
+        preparedStatement.setString(3, dateDebut);
+        preparedStatement.setString(4, dateLimiteRendu);
+        preparedStatement.executeUpdate();
     }
 
     //Fonction de test, à effacer

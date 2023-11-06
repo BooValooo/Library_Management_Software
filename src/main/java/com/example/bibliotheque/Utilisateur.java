@@ -1,5 +1,12 @@
 package com.example.bibliotheque;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Utilisateur {
     Integer id = null;
     String nom = null;
@@ -72,5 +79,24 @@ public class Utilisateur {
 
     public void setNombreMaxEmprunt(Integer nombreMaxEmprunt) {
         this.nombreMaxEmprunt = nombreMaxEmprunt;
+    }
+
+    // Permet de récupérer la date (en String) de retour maximale pour un emprunt connaissant l'id d'un utilisateur
+    protected String getDateLimiteEmprunt(Connection c, LocalDate dateDebutEmprunt) throws SQLException {
+        String query = "SELECT Durée_Maximale_Emprunt FROM Utilisateur WHERE Id = ?";
+        PreparedStatement prepStmt = c.prepareStatement(query);
+        prepStmt.setInt(1,this.id);
+
+        ResultSet rs = prepStmt.executeQuery();
+        Integer duree = null;
+        if (rs.next()) {
+            duree = rs.getInt("Durée_Maximale_Emprunt");
+        }
+        rs.close();
+
+        LocalDate dateLimiteEmprunt = dateDebutEmprunt.plusDays(duree);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+        String dateFormatee = dateLimiteEmprunt.format(formatter);
+        return dateFormatee;
     }
 }

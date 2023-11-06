@@ -37,7 +37,7 @@ public class SearchController extends Controller {
 
 
         // Requête pour récupérer tous les livres respectant la recherche
-        String query = "SELECT DISTINCT e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur FROM Edition AS e " +
+        String query = "SELECT DISTINCT e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible, l.Id FROM Edition AS e " +
                 "JOIN Association_Auteurs_Edition AS aae ON e.ISBN = aae.ISBN " +
                 "JOIN Auteur AS a ON aae.Auteur_Id = a.Id " +
                 "JOIN Livre AS l ON l.ISBN = e.ISBN " +
@@ -49,6 +49,8 @@ public class SearchController extends Controller {
         // Création de la liste de livres à partir du résultat de la requête
         while (resultSet.next()) {
             Livre livre = new Livre();
+            livre.setId(resultSet.getInt("Id"));
+            livre.setDisponible(resultSet.getBoolean("Disponible"));
             livre.setTitre(resultSet.getString("Titre"));
             livre.setIsbn(resultSet.getInt("ISBN"));
             livre.setMotCle1(resultSet.getString("Mot_Clé_1"));
