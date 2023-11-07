@@ -37,7 +37,7 @@ public class Identification {
     }
 
     //Permet de récupérer le hash du MdP d'un utilisateur ayant donné son Id
-    public String getMdp(Connection c) {
+    protected String getMdp(Connection c) {
 
         try {
             String sql = "SELECT Hash_MdP FROM Identification WHERE Utilisateur_id = ?";
@@ -61,7 +61,7 @@ public class Identification {
     }
 
     //Permet de récupérer le hash du MdP d'un utilisateur ayant donné son mail
-    public String getMdp(String utilisateurMail, Connection c) {
+    protected String getMdp(String utilisateurMail, Connection c) {
 
         try {
             String sql = "SELECT Hash_MdP FROM Identification WHERE Utilisateur_Mail = ?";
@@ -84,7 +84,8 @@ public class Identification {
         return null;
     }
 
-    public Integer getId(Connection c) {
+    // Récupère l'id d'un utilisateur connaissant son mail
+    protected Integer getId(Connection c) {
         try {
             String sql = "SELECT Utilisateur_Id FROM Identification WHERE Utilisateur_Mail = ?";
             PreparedStatement prep_stmt = c.prepareStatement(sql);
@@ -133,6 +134,16 @@ public class Identification {
         }
 
         return hexString.toString();
+    }
+
+    // Permet d'ajouter le mdp d'un utilisateur dans la BDD (mdp hashé)
+    protected void setMdpBdd(Connection c, String mdp) throws SQLException, NoSuchAlgorithmException {
+        String query = "UPDATE Identification SET Hash_Mdp = ? WHERE Utilisateur_Id = ?";
+        PreparedStatement prep_stmt = c.prepareStatement(query);
+        prep_stmt.setInt(2, this.utilisateurId);
+        String mdpHashe = toHexString(getSHA(mdp));
+        prep_stmt.setString(1,mdpHashe);
+        prep_stmt.executeUpdate();
     }
 }
 

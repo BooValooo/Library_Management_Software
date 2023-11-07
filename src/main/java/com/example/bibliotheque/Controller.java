@@ -47,4 +47,14 @@ public abstract class Controller {
         alert.showAndWait();
     }
 
+    public void afficherMessageInfo(String titre, String entete, String contenu) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titre);
+        alert.setHeaderText(entete);
+        alert.setContentText(contenu);
+        String css = this.getClass().getResource("styles.css").toExternalForm();
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.showAndWait();
+    }
+
 }

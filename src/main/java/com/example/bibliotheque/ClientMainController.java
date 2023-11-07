@@ -31,6 +31,7 @@ public class ClientMainController extends Controller {
     private AuthController authController = null;
     private SearchController searchController = null;
     private EmpruntsController empruntsController = null;
+    private EditPasswordController editPasswordController = null;
 
     @FXML
     //Initialise la tableView
@@ -120,6 +121,34 @@ public class ClientMainController extends Controller {
     }
 
     @FXML
+    //Ouvre une nouvelle vue sur laquelle l'utilisateur peut éditer son mot de passe
+    protected void  onModifierMdpClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editPasswordView.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+
+        editPasswordController = fxmlLoader.getController();
+        stage.setTitle("Modification du mot de passe");
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();       //open the new stage
+    }
+
+    /* Menu Retour */
+
+    @FXML
+    protected void onRetourClick() {
+        afficherMessageInfo("Notice","Rendre un livre ou déclarer une perte","Pour rendre un livre ou déclarer une perte, rendez-vous dans le menu Profil -> Consulter les emprunts, puis réaliser un clic droit sur le livre que vous souhaitez rendre.");
+    }
+
+
+    /* Menu Emprunter */
+
+    @FXML
+    protected void onEmprunterClick() {
+        afficherMessageInfo("Notice","Emprunter un livre","Pour emprunter un livre, Réalisez un clic droit sur son titre sur la page principale de l'application. Vous pouvez rechercher le livre que vous souhaitez ou bien n'afficher que les livres immédiatement disponibles dans le menu Rechercher.");
+    }
+    @FXML
     //Ouvre une fenêtre permettant à l'utilisateur de consulter ses emprunts en cours et passés
     protected void onEmpruntsClick() throws IOException, SQLException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("empruntsView.fxml"));
@@ -170,7 +199,7 @@ public class ClientMainController extends Controller {
                     selectedLivre.emprunt(c, utilisateurId, selectedLivre.id, dateFormatee, dateFin);
 
                     majTableViewLivres();
-                    afficherMessageSucces("Succès","Livre emprunté", "Vous avez emprunté le livre " + selectedLivre.titre + " avec succès.");
+                    afficherMessageInfo("Succès","Livre emprunté", "Vous avez emprunté le livre " + selectedLivre.titre + " avec succès.");
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

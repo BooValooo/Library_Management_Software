@@ -12,18 +12,18 @@
                   <MenuItem fx:id="closeMenu" mnemonicParsing="false" onAction="#onCloseClick" text="Fermer l'application" />
               <MenuItem fx:id="logOutMenu" mnemonicParsing="false" onAction="#onLogOutClick" text="Déconnexion" />
                   <MenuItem mnemonicParsing="false" onAction="#onEmpruntsClick" text="Consulter les emprunts" />
-                  <MenuItem mnemonicParsing="false" text="Editer mot de passe" />
+                  <MenuItem mnemonicParsing="false" onAction="#onModifierMdpClick" text="Editer mot de passe" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Retour">
             <items>
-              <MenuItem mnemonicParsing="false" text="Rendre un livre" />
-                  <MenuItem mnemonicParsing="false" text="Déclarer une perte" />
+              <MenuItem mnemonicParsing="false" onAction="#onRetourClick" text="Rendre un livre" />
+                  <MenuItem mnemonicParsing="false" onAction="#onRetourClick" text="Déclarer une perte" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Emprunter">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Emprunter un livre" />
+                  <MenuItem mnemonicParsing="false" onAction="#onEmprunterClick" text="Emprunter un livre" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Rechercher">
