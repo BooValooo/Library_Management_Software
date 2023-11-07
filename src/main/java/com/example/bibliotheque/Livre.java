@@ -11,6 +11,8 @@ public class Livre extends Edition {
 
     Boolean disponible = null;
 
+    Integer AnneePremiereParution = null;
+
     public Integer getId() {
         return id;
     }
@@ -29,6 +31,13 @@ public class Livre extends Edition {
         this.disponible = disponible;
     }
 
+    public Integer getAnneePremiereParution() {
+        return AnneePremiereParution;
+    }
+
+    public void setAnneePremiereParution(Integer anneePremiereParution) {
+        AnneePremiereParution = anneePremiereParution;
+    }
 
     //Donne le titre d'un ouvrage connaissant son Id
     protected String getTitre(Connection c) {

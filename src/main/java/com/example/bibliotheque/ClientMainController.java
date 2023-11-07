@@ -37,6 +37,9 @@ public class ClientMainController extends Controller {
     //Initialise la tableView
     protected void initalizeTableViewLivres() throws SQLException {
         //Création de colonnes pour la tableView
+        TableColumn<Livre, Integer> isbnCol = new TableColumn<>("ISBN");
+        isbnCol.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getIsbn()));
+
         TableColumn<Livre, String> titreCol = new TableColumn<>("Titre");
         titreCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTitre()));
 
@@ -45,6 +48,9 @@ public class ClientMainController extends Controller {
 
         TableColumn<Livre, Integer> anneeEditionCol = new TableColumn<>("Année d'édition");
         anneeEditionCol.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getAnneeEdition()));
+
+        TableColumn<Livre, Integer> anneeParutionCol = new TableColumn<>("Année de première parution");
+        anneeParutionCol.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getAnneePremiereParution()));
 
         TableColumn<Livre, String> motCle1Col = new TableColumn<>("Genre principal"); //Le genre principal correspond au mot clé 1
         motCle1Col.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMotCle1()));
@@ -57,14 +63,14 @@ public class ClientMainController extends Controller {
 
 
         // Ajout des colonnes à la TableView
-        tableViewLivres.getColumns().addAll(titreCol, auteursCol, anneeEditionCol, motCle1Col, editeurCol, dispoCol);
+        tableViewLivres.getColumns().addAll(isbnCol, titreCol, auteursCol, anneeEditionCol, anneeParutionCol, motCle1Col, editeurCol, dispoCol);
 
         majTableViewLivres();
     }
 
     protected void majTableViewLivres() throws SQLException {
         // Requête pour récupérer les livres
-        String query = "SELECT l.Id, e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible FROM Edition AS e JOIN Livre AS l ON e.ISBN = l.ISBN";
+        String query = "SELECT l.Id, e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible, l.Année_Première_Parution FROM Edition AS e JOIN Livre AS l ON e.ISBN = l.ISBN";
         ResultSet resultSet = c.createStatement().executeQuery(query);
 
         List<Livre> livres = new ArrayList<>();
@@ -72,6 +78,7 @@ public class ClientMainController extends Controller {
         // Création de la liste de livres à partir du résultat de la requête
         while (resultSet.next()) {
             Livre livre = new Livre();
+            livre.setIsbn(resultSet.getInt("ISBN"));
             livre.setId(resultSet.getInt("Id"));
             livre.setDisponible(resultSet.getBoolean("Disponible"));
             livre.setTitre(resultSet.getString("Titre"));
@@ -79,6 +86,7 @@ public class ClientMainController extends Controller {
             livre.setMotCle1(resultSet.getString("Mot_Clé_1"));
             livre.setAnneeEdition(resultSet.getInt("Année_Edition"));
             livre.setEditeur(resultSet.getString("Editeur"));
+            livre.setAnneePremiereParution(resultSet.getInt("Année_Première_Parution"));
             livre.setAuteurs(livre.getAuthors(c));
 
 
@@ -180,26 +188,32 @@ public class ClientMainController extends Controller {
         // Associe des actions aux éléments du menu
         emprunterLivre.setOnAction(e -> {
             Livre selectedLivre = tableViewLivres.getSelectionModel().getSelectedItem();
+            Utilisateur user = new Utilisateur();
+            user.id = utilisateurId;
             if (!selectedLivre.disponible) {afficherMessageErreur("Erreur", "Livre non disponible", "Ce livre n'est pas disponible actuellement.");
                 return;}
             else {
                 try {
-                    // Obtenir la date du jour
-                    LocalDate dateDuJour = LocalDate.now();
+                    if (user.getNombreEmprunts(c) >= user.getNombreMaxEmprunts(c)) { // Refus si trop grand nombre d'emprunts
+                        afficherMessageErreur("Erreur", "Nombre maximal d'emprunts autorisés atteint", "Si vous souhaitez emprunter un nouveau livre, veuillez d'abord en rendre un, ou bien veuillez prendre contact avec un bibliothécaire.");
+                        return;
+                    }
+                    else {
+                        // Obtenir la date du jour
+                        LocalDate dateDuJour = LocalDate.now();
 
-                    // Formater la date en "aaaa-MM-jj"
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-                    String dateFormatee = dateDuJour.format(formatter);
+                        // Formater la date en "aaaa-MM-jj"
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+                        String dateFormatee = dateDuJour.format(formatter);
 
-                    // Obtenir la date de retour
-                    Utilisateur user = new Utilisateur();
-                    user.id = utilisateurId;
-                    String dateFin = user.getDateLimiteEmprunt(c,dateDuJour);
+                        // Obtenir la date de retour
+                        String dateFin = user.getDateLimiteEmprunt(c,dateDuJour);
 
-                    selectedLivre.emprunt(c, utilisateurId, selectedLivre.id, dateFormatee, dateFin);
+                        selectedLivre.emprunt(c, utilisateurId, selectedLivre.id, dateFormatee, dateFin);
 
-                    majTableViewLivres();
-                    afficherMessageInfo("Succès","Livre emprunté", "Vous avez emprunté le livre " + selectedLivre.titre + " avec succès.");
+                        majTableViewLivres();
+                        afficherMessageInfo("Succès","Livre emprunté", "Vous avez emprunté le livre " + selectedLivre.titre + " avec succès.");
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

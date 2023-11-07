@@ -99,4 +99,34 @@ public class Utilisateur {
         String dateFormatee = dateLimiteEmprunt.format(formatter);
         return dateFormatee;
     }
+
+    // Permet de récupérer le nombre maximal d'emprunts autorisé d'un utilisateur connaissant son Id
+    protected int getNombreMaxEmprunts(Connection c) throws SQLException {
+        String query = "SELECT Nombre_Maximal_Emprunt From Utilisateur WHERE Id = ?";
+        PreparedStatement prepStmt = c.prepareStatement(query);
+        prepStmt.setInt(1,this.id);
+
+        ResultSet rs = prepStmt.executeQuery();
+        Integer nombreEmprunts = null;
+        if (rs.next()) {
+            nombreEmprunts = rs.getInt("Nombre_Maximal_Emprunt");
+        }
+        rs.close();
+        return nombreEmprunts;
+    }
+
+    // Retourne le nombre d'emprunts en cours d'un utilisateur
+    protected int getNombreEmprunts(Connection c) throws SQLException {
+        String query = "SELECT COUNT(*) FROM Emprunt WHERE Utilisateur_Id = ? AND Rendu = 0";
+        PreparedStatement prepStmt = c.prepareStatement(query);
+        prepStmt.setInt(1,this.id);
+
+        ResultSet rs = prepStmt.executeQuery();
+        Integer nombreEmprunts = null;
+        if (rs.next()) {
+            nombreEmprunts = rs.getInt(1);
+        }
+        rs.close();
+        return nombreEmprunts;
+    }
 }

@@ -29,6 +29,9 @@ public class EmpruntsController extends Controller {
 
     protected void initalizeTableViewEmprunts() throws SQLException {
         //Création de colonnes pour la tableView
+        TableColumn<Emprunt, Integer> isbnCol = new TableColumn<>("ISBN");
+        isbnCol.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getIsbn()));
+
         TableColumn<Emprunt, String> titreCol = new TableColumn<>("Titre");
         titreCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTitre()));
 
@@ -46,7 +49,7 @@ public class EmpruntsController extends Controller {
 
 
         // Ajout des colonnes à la TableView
-        tableViewEmprunts.getColumns().addAll(titreCol, dateCol, dateLimiteCol, renduCol, dateRetourCol);
+        tableViewEmprunts.getColumns().addAll(isbnCol, titreCol, dateCol, dateLimiteCol, renduCol, dateRetourCol);
 
 
         majTableViewEmprunts();
@@ -61,7 +64,8 @@ public class EmpruntsController extends Controller {
         }
 
         // Requête pour récupérer les emprunts (en cours ou tous)
-        String query = "SELECT Id, Livre_Id, Date_Début, Date_Limite_Rendu, Rendu, Date_Rendu FROM Emprunt WHERE Utilisateur_Id = ? AND Rendu <= " + tousLesEmprunts;
+        String query = "SELECT e.Id, e.Livre_Id, e.Date_Début, e.Date_Limite_Rendu, e.Rendu, e.Date_Rendu, l.ISBN FROM Emprunt AS e " +
+                "JOIN Livre AS l ON l.Id = e.Livre_Id WHERE e.Utilisateur_Id = ? AND e.Rendu <= " + tousLesEmprunts;
         PreparedStatement prep_stmt = c.prepareStatement(query);
         prep_stmt.setInt(1, this.utilisateurId);
         ResultSet resultSet = prep_stmt.executeQuery();
@@ -75,6 +79,7 @@ public class EmpruntsController extends Controller {
             livre.setId(resultSet.getInt("Livre_Id"));
             livre.setTitre(livre.getTitre(c));
             emprunt.setId(resultSet.getInt("Id"));
+            emprunt.setIsbn(resultSet.getInt("ISBN"));
             emprunt.setLivreId(resultSet.getInt("Livre_Id"));
             emprunt.setTitre(livre.getTitre());
             emprunt.setDateDebut(resultSet.getString("Date_Début"));

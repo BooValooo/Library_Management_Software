@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Emprunt {
     Integer id = null;
+    Integer isbn = null;
     String dateDebut = null;
     String dateFinPrevue = null;
     String dateFinReelle = null;
@@ -19,6 +20,14 @@ public class Emprunt {
     public Integer getId() {return id;}
 
     public void setId(Integer i) {this.id = i;}
+
+    public Integer getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(Integer isbn) {
+        this.isbn = isbn;
+    }
 
     public Integer getLivreId() {
         return livreId;
