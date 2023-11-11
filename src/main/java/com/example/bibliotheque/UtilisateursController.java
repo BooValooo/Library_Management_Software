@@ -27,6 +27,7 @@ public class UtilisateursController extends Controller{
     TableView<Utilisateur> tableViewUtilisateurs ;
     private SearchUserController searchUserController;
     private UpdateUserController updateUserController;
+    private AddUserController addUserController;
     private Stage stage = new Stage();
 
     // Initialise l'affichage des utilisateurs.
@@ -157,6 +158,29 @@ public class UtilisateursController extends Controller{
         searchUserController = fxmlLoader.getController();
         searchUserController.setUtilisateursController(this);
         stage.setTitle("Recherche d'un utilisateur");
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();       //open the new stage
+    }
+
+
+    /* Menu AJOUTER ET MODIFIER */
+
+    @FXML
+    protected void onAjouterClick() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addUserView.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = (Parent) fxmlLoader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        addUserController = fxmlLoader.getController();
+        addUserController.setUtilisateursController(this);
+        addUserController.setStage(stage);
+        addUserController.initializeCategories();
+        stage.setTitle("Création d'un utilisateur");
         Scene scene = new Scene(root1);
         scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
         stage.setScene(scene);

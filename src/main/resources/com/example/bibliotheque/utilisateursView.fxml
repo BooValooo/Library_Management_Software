@@ -19,7 +19,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Ajouter et modifier">
               <items>
-                <MenuItem mnemonicParsing="false" text="Ajouter un nouvel utilisateur" />
+                <MenuItem mnemonicParsing="false" onAction="#onAjouterClick" text="Ajouter un nouvel utilisateur" />
                   <MenuItem mnemonicParsing="false" text="Modifier le profil d'un utilisateur" />
               </items>
             </Menu>

@@ -153,6 +153,7 @@ public class Utilisateur {
         return categorieName;
     }
 
+    // Permet de modifier le profil d'un utilisateur (ne met pas automatiquement à jour la date de rendu des emprunts)
     protected int setUser(Connection c) throws SQLException {
         String query = "UPDATE Utilisateur SET Nom = ?, Prénom = ?, Mail = ?, Téléphone = ?, Catégorie_Id = ?, Durée_Maximale_Emprunt = ?, Nombre_Maximal_Emprunt = ? WHERE Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);
@@ -169,5 +170,20 @@ public class Utilisateur {
         int rowsAffected = prepStmt.executeUpdate();
 
         return rowsAffected;
+    }
+
+    protected void addUser(Connection c) throws SQLException {
+        String query = "INSERT INTO Utilisateur (Nom, Prénom, Mail, Téléphone, Catégorie_Id, Durée_Maximale_Emprunt, Nombre_Maximal_Emprunt) VALUES (?,?,?,?,?,?,?)";
+        PreparedStatement prepStmt = c.prepareStatement(query);
+
+        prepStmt.setString(1, this.nom);
+        prepStmt.setString(2, this.prenom);
+        prepStmt.setString(3, this.mail);
+        prepStmt.setString(4, this.telephone);
+        prepStmt.setInt(5, this.categorieId);
+        prepStmt.setInt(6, this.dureeMaxEmprunt);
+        prepStmt.setInt(7, this.nombreMaxEmprunt);
+
+        prepStmt.executeUpdate();
     }
 }
