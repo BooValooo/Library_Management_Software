@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="419.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.SearchAdminController">
+    <children>
+        <TextField fx:id="titreInput" layoutX="64.0" layoutY="148.0" prefHeight="31.0" prefWidth="291.0" promptText="Titre" styleClass="input-field" />
+        <Button fx:id="rechercherButton" layoutX="143.0" layoutY="512.0" mnemonicParsing="false" onAction="#onRechercherClick" prefHeight="31.0" prefWidth="133.0" styleClass="primary-button" text="Rechercher" />
+        <Label layoutX="121.0" layoutY="44.0" styleClass="label" text="Rechercher un livre">
+            <font>
+                <Font size="18.0" />
+            </font></Label>
+        <Label layoutX="64.0" layoutY="124.0" styleClass="label" text="Titre">
+            <font>
+                <Font size="14.0" />
+            </font></Label>
+        <Label layoutX="66.0" layoutY="208.0" styleClass="label" text="Auteur (nom de famille)">
+            <font>
+                <Font size="14.0" />
+            </font></Label>
+        <TextField fx:id="genreInput" layoutX="64.0" layoutY="306.0" prefHeight="31.0" prefWidth="291.0" promptText="Genre" styleClass="input-field" />
+        <TextField fx:id="auteurInput" layoutX="64.0" layoutY="228.0" prefHeight="31.0" prefWidth="291.0" promptText="Auteur" styleClass="input-field" />
+        <Label layoutX="65.0" layoutY="285.0" styleClass="label" text="Genre">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <CheckBox fx:id="livresDisponibles" layoutX="73.0" layoutY="375.0" mnemonicParsing="false" text="N'afficher que les livres disponibles">
+            <font>
+                <Font size="14.0" />
+            </font></CheckBox>
+      <CheckBox fx:id="livresEnRetard" layoutX="23.0" layoutY="438.0" mnemonicParsing="false" text="N'afficher que les livres qui devraient être rendus">
+         <font>
+            <Font size="14.0" />
+         </font></CheckBox>
+    </children>
+</AnchorPane>

@@ -59,8 +59,7 @@ public class AuthController extends Controller{
 
                 Stage currentStage = (Stage) validerButton.getScene().getWindow();
                 currentStage.close();          //close the current stage
-            }
-            else if (cred.getCategorie(c) == 1) { //Charge la page pour les admins
+            } else if (cred.getCategorie(c) == 1) { //Charge la page pour les admins
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("adminMainView.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 adminMainController = fxmlLoader.getController();
@@ -80,9 +79,9 @@ public class AuthController extends Controller{
                 Stage currentStage = (Stage) validerButton.getScene().getWindow();
                 currentStage.close();          //close the current stage
             }
-
+        }
          else {
             afficherMessageErreur("Erreur", "Authentification échouée", "Si vous ne vous rappelez plus de vos identifiants, veuillez contacter le bibliothécaire.");
         }
     }
-}}
+}

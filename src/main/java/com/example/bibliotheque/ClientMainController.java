@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientMainController extends Controller {
-    private Stage stage = new Stage();
+    protected final Stage stage = new Stage();
     @FXML
     private VBox vbox;
     @FXML
@@ -233,7 +233,7 @@ public class ClientMainController extends Controller {
 
     /* Menu Rechercher */
     @FXML
-    //Ouvre une vue de recherche de livre, ferme la vue actuelle
+    //Ouvre une vue de recherche de livre
     protected void onSearchClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchView.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();

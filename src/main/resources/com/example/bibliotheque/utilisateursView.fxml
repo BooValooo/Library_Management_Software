@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vbox" alignment="CENTER" prefHeight="462.0" prefWidth="1145.0" spacing="20.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.UtilisateursController">
+    <children>
+        <MenuBar prefHeight="33.0" prefWidth="1033.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Rechercher">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Rechercher un utilisateur" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Liste Rouge">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Ajouter un utilisateur sur liste rouge" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Ajouter et modifier">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Ajouter un nouvel utilisateur" />
+                  <MenuItem mnemonicParsing="false" text="Modifier le profil d'un utilisateur" />
+              </items>
+            </Menu>
+         </menus></MenuBar>
+        <SplitPane fx:id="pane" prefHeight="460.0" prefWidth="1033.0" styleClass="background">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="1031.0" styleClass="background">
+                    <children>
+                        <TableView fx:id="tableViewUtilisateurs" layoutY="-3.0" prefHeight="415.0" prefWidth="1143.0">
+                            <columns>
+                            </columns>
+                        </TableView>
+                    </children></AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>

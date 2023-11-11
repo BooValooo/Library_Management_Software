@@ -17,13 +17,13 @@ public class SearchController extends Controller {
     @FXML
     private Button rechercherButton;
     @FXML
-    private TextField titreInput;
+    protected TextField titreInput;
     @FXML
-    private TextField auteurInput;
+    protected TextField auteurInput;
     @FXML
-    private TextField genreInput;
+    protected TextField genreInput;
     @FXML
-    private CheckBox livresDisponibles;
+    protected CheckBox livresDisponibles;
     protected ClientMainController mainController;
 
     @FXML
