@@ -45,7 +45,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Utilisateurs">
               <items>
-                <MenuItem mnemonicParsing="false" text="Afficher la page utilisateurs" />
+                <MenuItem mnemonicParsing="false" onAction="#onUtilisateursClick" text="Afficher la page utilisateurs" />
               </items>
             </Menu>
             </menus>

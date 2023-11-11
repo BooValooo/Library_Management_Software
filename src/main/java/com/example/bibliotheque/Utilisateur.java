@@ -12,8 +12,9 @@ public class Utilisateur {
     String nom = null;
     String prenom = null;
     String mail = null;
-    Integer telephone = null;
+    String telephone = null;
     Integer categorieId = null;
+    String categorie = null;
     Integer dureeMaxEmprunt = null;
     Integer nombreMaxEmprunt = null;
 
@@ -49,11 +50,11 @@ public class Utilisateur {
         this.mail = mail;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
@@ -63,6 +64,14 @@ public class Utilisateur {
 
     public void setCategorieId(Integer categorieId) {
         this.categorieId = categorieId;
+    }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
     }
 
     public Integer getDureeMaxEmprunt() {
@@ -128,5 +137,19 @@ public class Utilisateur {
         }
         rs.close();
         return nombreEmprunts;
+    }
+
+    protected String getCategorieName(Connection c) throws SQLException {
+        String query = "SELECT c.Nom FROM Catégorie AS c JOIN Utilisateur AS u ON u.Catégorie_Id = c.Id WHERE u.Id = ?";
+        PreparedStatement prepStmt = c.prepareStatement(query);
+        prepStmt.setInt(1,this.id);
+
+        ResultSet rs = prepStmt.executeQuery();
+        String categorieName = null;
+        if (rs.next()) {
+            categorieName = rs.getString("Nom");
+        }
+        rs.close();
+        return categorieName;
     }
 }

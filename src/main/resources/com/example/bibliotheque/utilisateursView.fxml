@@ -9,7 +9,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Rechercher">
               <items>
-                <MenuItem mnemonicParsing="false" text="Rechercher un utilisateur" />
+                <MenuItem mnemonicParsing="false" onAction="#onRechercherClick" text="Rechercher un utilisateur" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Liste Rouge">

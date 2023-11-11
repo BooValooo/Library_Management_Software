@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="390.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.SearchUserController">
+    <children>
+        <TextField fx:id="idInput" layoutX="74.0" layoutY="139.0" prefHeight="31.0" prefWidth="242.0" promptText="Id" styleClass="input-field" />
+        <Button fx:id="rechercherButton" layoutX="129.0" layoutY="407.0" mnemonicParsing="false" onAction="#onRechercherClick" prefHeight="31.0" prefWidth="133.0" styleClass="primary-button" text="Rechercher" />
+        <Label layoutX="81.0" layoutY="41.0" styleClass="label" text="Rechercher un utilisateur">
+            <font>
+                <Font size="18.0" />
+            </font></Label>
+        <Label layoutX="74.0" layoutY="117.0" styleClass="label" text="Id">
+            <font>
+                <Font size="14.0" />
+            </font></Label>
+        <Label layoutX="74.0" layoutY="203.0" styleClass="label" text="Nom">
+            <font>
+                <Font size="14.0" />
+            </font></Label>
+        <TextField fx:id="prenomInput" layoutX="75.0" layoutY="319.0" prefHeight="31.0" prefWidth="242.0" promptText="Prénom" styleClass="input-field" />
+        <TextField fx:id="nomInput" layoutX="74.0" layoutY="226.0" prefHeight="31.0" prefWidth="242.0" promptText="Nom" styleClass="input-field" />
+        <Label layoutX="76.0" layoutY="296.0" styleClass="label" text="Prénom">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
