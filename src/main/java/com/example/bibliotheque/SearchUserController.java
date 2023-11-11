@@ -3,7 +3,11 @@ package com.example.bibliotheque;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,6 +72,5 @@ public class SearchUserController extends Controller{
 
         // MàJ de la tableView
         utilisateursController.tableViewUtilisateurs.setItems(livresObservable);
-
     }
 }

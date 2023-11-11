@@ -113,8 +113,7 @@ public class EmpruntsController extends Controller {
         // Crée un menu contextuel
         ContextMenu contextMenu = new ContextMenu();
         MenuItem rendreLivre = new MenuItem("Rendre");
-        MenuItem perdreLivre = new MenuItem("Déclarer perdu");
-        contextMenu.getItems().addAll(rendreLivre, perdreLivre);
+        contextMenu.getItems().addAll(rendreLivre);
 
         // Définit un gestionnaire d'événements pour afficher le menu contextuel lors du clic droit
         tableViewEmprunts.setOnContextMenuRequested(event -> {
@@ -137,10 +136,6 @@ public class EmpruntsController extends Controller {
                     throw new RuntimeException(ex);
                 }
             }
-        });
-
-        perdreLivre.setOnAction(e -> {
-            // A compléter
         });
 
         // Ferme le menu contextuel

@@ -8,8 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +26,7 @@ public class UtilisateursController extends Controller{
     @FXML
     TableView<Utilisateur> tableViewUtilisateurs ;
     private SearchUserController searchUserController;
+    private UpdateUserController updateUserController;
     private Stage stage = new Stage();
 
     // Initialise l'affichage des utilisateurs.
@@ -96,6 +101,51 @@ public class UtilisateursController extends Controller{
 
         // MàJ de la tableView
         tableViewUtilisateurs.setItems(livresObservable);
+    }
+
+    // Ouvre un menu contextuel qui permet de modifier le profil d'un utilisateur ou de le blacklister
+    @FXML
+    protected void onUtilisateurClick() {
+
+        // Crée un menu contextuel
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem modifierProfil = new MenuItem("Modifier le profil");
+        contextMenu.getItems().addAll(modifierProfil);
+
+        // Définit un gestionnaire d'événements pour afficher le menu contextuel lors du clic droit
+        tableViewUtilisateurs.setOnContextMenuRequested(event -> {
+            contextMenu.show(tableViewUtilisateurs, event.getScreenX(), event.getScreenY());
+        });
+
+        // Associe des actions aux éléments du menu
+        modifierProfil.setOnAction(e -> {
+            Utilisateur selectedUtilisateur = tableViewUtilisateurs.getSelectionModel().getSelectedItem();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("updateUserView.fxml"));
+            Parent root1 = null;
+            try {
+                root1 = (Parent) fxmlLoader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            updateUserController = fxmlLoader.getController();
+            updateUserController.setUtilisateursController(this);
+            updateUserController.setSelectedUtilisateur(selectedUtilisateur);
+            updateUserController.initializeInput();
+            updateUserController.setStage(stage);
+            stage.setTitle("Modification du profil d'un utilisateur");
+            Scene scene = new Scene(root1);
+            scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();       //open the new stage
+        });
+
+        // Ferme le menu contextuel
+        tableViewUtilisateurs.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                event -> {
+                    if (event.getButton() == MouseButton.PRIMARY) { // Vérifiez que le clic est un clic gauche
+                        contextMenu.hide(); // Ferme le menu contextuel
+                    }
+                });
     }
 
     /* Menu RECHERCHER */

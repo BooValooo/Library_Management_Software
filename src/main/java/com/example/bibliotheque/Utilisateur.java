@@ -94,7 +94,7 @@ public class Utilisateur {
     protected String getDateLimiteEmprunt(Connection c, LocalDate dateDebutEmprunt) throws SQLException {
         String query = "SELECT Durée_Maximale_Emprunt FROM Utilisateur WHERE Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);
-        prepStmt.setInt(1,this.id);
+        prepStmt.setInt(1, this.id);
 
         ResultSet rs = prepStmt.executeQuery();
         Integer duree = null;
@@ -113,7 +113,7 @@ public class Utilisateur {
     protected int getNombreMaxEmprunts(Connection c) throws SQLException {
         String query = "SELECT Nombre_Maximal_Emprunt From Utilisateur WHERE Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);
-        prepStmt.setInt(1,this.id);
+        prepStmt.setInt(1, this.id);
 
         ResultSet rs = prepStmt.executeQuery();
         Integer nombreEmprunts = null;
@@ -128,7 +128,7 @@ public class Utilisateur {
     protected int getNombreEmprunts(Connection c) throws SQLException {
         String query = "SELECT COUNT(*) FROM Emprunt WHERE Utilisateur_Id = ? AND Rendu = 0";
         PreparedStatement prepStmt = c.prepareStatement(query);
-        prepStmt.setInt(1,this.id);
+        prepStmt.setInt(1, this.id);
 
         ResultSet rs = prepStmt.executeQuery();
         Integer nombreEmprunts = null;
@@ -142,7 +142,7 @@ public class Utilisateur {
     protected String getCategorieName(Connection c) throws SQLException {
         String query = "SELECT c.Nom FROM Catégorie AS c JOIN Utilisateur AS u ON u.Catégorie_Id = c.Id WHERE u.Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);
-        prepStmt.setInt(1,this.id);
+        prepStmt.setInt(1, this.id);
 
         ResultSet rs = prepStmt.executeQuery();
         String categorieName = null;
@@ -151,5 +151,23 @@ public class Utilisateur {
         }
         rs.close();
         return categorieName;
+    }
+
+    protected int setUser(Connection c) throws SQLException {
+        String query = "UPDATE Utilisateur SET Nom = ?, Prénom = ?, Mail = ?, Téléphone = ?, Catégorie_Id = ?, Durée_Maximale_Emprunt = ?, Nombre_Maximal_Emprunt = ? WHERE Id = ?";
+        PreparedStatement prepStmt = c.prepareStatement(query);
+
+        prepStmt.setString(1, this.nom);
+        prepStmt.setString(2, this.prenom);
+        prepStmt.setString(3, this.mail);
+        prepStmt.setString(4, this.telephone);
+        prepStmt.setInt(5, this.categorieId);
+        prepStmt.setInt(6, this.dureeMaxEmprunt);
+        prepStmt.setInt(7, this.nombreMaxEmprunt);
+        prepStmt.setInt(8, this.id);
+
+        int rowsAffected = prepStmt.executeUpdate();
+
+        return rowsAffected;
     }
 }

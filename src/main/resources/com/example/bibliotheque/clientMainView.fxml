@@ -18,7 +18,6 @@
           <Menu mnemonicParsing="false" text="Retour">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#onRetourClick" text="Rendre un livre" />
-                  <MenuItem mnemonicParsing="false" onAction="#onRetourClick" text="Déclarer une perte" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Emprunter">

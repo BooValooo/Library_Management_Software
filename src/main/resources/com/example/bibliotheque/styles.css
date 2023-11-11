@@ -9,6 +9,21 @@
     -fx-background-radius: 10; /* Set the corner radius for smooth, rounded corners */
 }
 
+.choice-box {
+    -fx-background-color: white;
+    -fx-prompt-text-fill: #0d1137; /* Set the placeholder text color */
+    -fx-font-size: 14px; /* Set font size */
+    -fx-padding: 5px; /* Add padding for better spacing */
+    -fx-background-radius: 10; /* Set the corner radius for smooth, rounded corners */
+}
+
+.text-field {
+    -fx-prompt-text-fill: #0d1137; /* Set the placeholder text color */
+    -fx-font-size: 14px; /* Set font size */
+    -fx-padding: 5px; /* Add padding for better spacing */
+    -fx-background-radius: 10; /* Set the corner radius for smooth, rounded corners */
+}
+
 .primary-button {
     -fx-background-color: #0d1137; /* Set the background color */
     -fx-text-fill: #b4a284; /* Set text color */

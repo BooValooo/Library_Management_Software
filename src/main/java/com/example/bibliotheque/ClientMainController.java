@@ -146,7 +146,7 @@ public class ClientMainController extends Controller {
 
     @FXML
     protected void onRetourClick() {
-        afficherMessageInfo("Notice","Rendre un livre ou déclarer une perte","Pour rendre un livre ou déclarer une perte, rendez-vous dans le menu Profil -> Consulter les emprunts, puis réaliser un clic droit sur le livre que vous souhaitez rendre.");
+        afficherMessageInfo("Notice","Rendre un livre","Pour rendre un livre, rendez-vous dans le menu Profil -> Consulter les emprunts, puis réaliser un clic droit sur le livre que vous souhaitez rendre.");
     }
 
 
