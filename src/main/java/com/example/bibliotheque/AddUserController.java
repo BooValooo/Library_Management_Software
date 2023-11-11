@@ -67,7 +67,7 @@ public class AddUserController extends Controller{
         utilisateur.setCategorieId(categorieId);
 
         utilisateur.addUser(c);
-        afficherMessageInfo("Succès","Profil créé",  "Un nouveau profil vient bien d'être créé.");
+        afficherMessageInfo("Succès","Profil créé",  "Un nouveau profil vient bien d'être créé. Son mot de passe temporaire est 1234");
         utilisateursController.majTableViewUtilisateurs();
         stage.close();
     }

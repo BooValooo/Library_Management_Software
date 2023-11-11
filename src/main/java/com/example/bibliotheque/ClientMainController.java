@@ -191,6 +191,11 @@ public class ClientMainController extends Controller {
             Livre selectedLivre = tableViewLivres.getSelectionModel().getSelectedItem();
             Utilisateur user = new Utilisateur();
             user.id = utilisateurId;
+            try {
+                user.setDateListeRouge(user.getDateListeRouge(c));
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             if (!selectedLivre.disponible) {afficherMessageErreur("Erreur", "Livre non disponible", "Ce livre n'est pas disponible actuellement.");
                 return;}
             else {
@@ -199,6 +204,7 @@ public class ClientMainController extends Controller {
                         afficherMessageErreur("Erreur", "Nombre maximal d'emprunts autorisés atteint", "Si vous souhaitez emprunter un nouveau livre, veuillez d'abord en rendre un, ou bien veuillez prendre contact avec un bibliothécaire.");
                         return;
                     }
+                    else if (!user.getDateListeRouge().equals("")) {afficherMessageErreur("Erreur","Utilisateur sur liste rouge","Vous avez été radié(e) de cette bibliothèque.");}
                     else {
                         // Obtenir la date du jour
                         LocalDate dateDuJour = LocalDate.now();

@@ -77,32 +77,4 @@ public class Livre extends Edition {
         preparedStatement.setString(4, dateLimiteRendu);
         preparedStatement.executeUpdate();
     }
-
-    //Fonction de test, à effacer
-    public static void main(String args[] ) {
-        Connection c = null;
-        Statement stmt = null;
-
-        c = BDDConnector.getConnection();
-        try {
-            stmt = c.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        String sql = "INSERT INTO Livre (Id, ISBN)" + "VALUES (2,123457)";
-        try {
-            stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        System.out.println("Table edited successfully");
-    }
 }

@@ -17,6 +17,8 @@ public class Utilisateur {
     String categorie = null;
     Integer dureeMaxEmprunt = null;
     Integer nombreMaxEmprunt = null;
+    String listeRouge = null;
+    String dateListeRouge = null;
 
     public Integer getId() {
         return id;
@@ -90,6 +92,39 @@ public class Utilisateur {
         this.nombreMaxEmprunt = nombreMaxEmprunt;
     }
 
+    public String getListeRouge() {
+        return listeRouge;
+    }
+
+    public void setListeRouge(String listeRouge) {
+        this.listeRouge = listeRouge;
+    }
+
+    public String getDateListeRouge() {
+        return dateListeRouge;
+    }
+
+    public void setDateListeRouge(String dateListeRouge) {
+        this.dateListeRouge = dateListeRouge;
+    }
+
+    // Récupère l'id d'un utilisateur connaissant son mail
+    protected Integer getId(Connection c) throws SQLException {
+        String sql = "SELECT Id FROM Utilisateur WHERE Mail = ?";
+        PreparedStatement prep_stmt = c.prepareStatement(sql);
+        prep_stmt.setString(1, this.mail);
+
+        ResultSet rs = prep_stmt.executeQuery();
+        Integer id = null;
+
+        if (rs.next()) {
+            id = rs.getInt("Id");
+        }
+
+        rs.close();
+        return id;
+    }
+
     // Permet de récupérer la date (en String) de retour maximale pour un emprunt connaissant l'id d'un utilisateur
     protected String getDateLimiteEmprunt(Connection c, LocalDate dateDebutEmprunt) throws SQLException {
         String query = "SELECT Durée_Maximale_Emprunt FROM Utilisateur WHERE Id = ?";
@@ -153,7 +188,7 @@ public class Utilisateur {
         return categorieName;
     }
 
-    // Permet de modifier le profil d'un utilisateur (ne met pas automatiquement à jour la date de rendu des emprunts)
+    // Permet de modifier le profil d'un utilisateur, ainsi que ses credentials si son email a été modifié (ne met pas automatiquement à jour la date de rendu des emprunts)
     protected int setUser(Connection c) throws SQLException {
         String query = "UPDATE Utilisateur SET Nom = ?, Prénom = ?, Mail = ?, Téléphone = ?, Catégorie_Id = ?, Durée_Maximale_Emprunt = ?, Nombre_Maximal_Emprunt = ? WHERE Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);
@@ -169,9 +204,18 @@ public class Utilisateur {
 
         int rowsAffected = prepStmt.executeUpdate();
 
+        String queryTwo = "UPDATE Identification SET Utilisateur_Mail = ? WHERE Utilisateur_Id = ?";
+        PreparedStatement prepStmtTwo = c.prepareStatement(queryTwo);
+
+        prepStmtTwo.setString(1,this.mail);
+        prepStmtTwo.setInt(2,this.id);
+
+        prepStmtTwo.executeUpdate();
+
         return rowsAffected;
     }
 
+    // Permet d'ajouter un utilisateur dans la BDD, et lui crée un mot de passe automatique (1234)
     protected void addUser(Connection c) throws SQLException {
         String query = "INSERT INTO Utilisateur (Nom, Prénom, Mail, Téléphone, Catégorie_Id, Durée_Maximale_Emprunt, Nombre_Maximal_Emprunt) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement prepStmt = c.prepareStatement(query);
@@ -183,6 +227,44 @@ public class Utilisateur {
         prepStmt.setInt(5, this.categorieId);
         prepStmt.setInt(6, this.dureeMaxEmprunt);
         prepStmt.setInt(7, this.nombreMaxEmprunt);
+
+        prepStmt.executeUpdate();
+
+        String queryTwo = "INSERT INTO Identification (Utilisateur_Id, Utilisateur_Mail, Hash_MdP) VALUES (?,?,?)";
+        PreparedStatement prepStmtTwo = c.prepareStatement(queryTwo);
+
+        prepStmtTwo.setInt(1,this.getId(c));
+        prepStmtTwo.setString(2,this.mail);
+        prepStmtTwo.setString(3,"03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4");
+
+        prepStmtTwo.executeUpdate();
+    }
+
+    // Retourne la date de radiation d'un utilisateur, s'il a été radié.
+    protected String getDateListeRouge(Connection c) throws SQLException {
+        String query = "SELECT Date_De_Radiation FROM Liste_Rouge WHERE Utilisateur_Id = ?";
+        PreparedStatement prepStmt = c.prepareStatement(query);
+        prepStmt.setInt(1,this.id);
+        ResultSet rs = prepStmt.executeQuery();
+        String date = "";
+        if (rs.next()) {
+            date = rs.getString("Date_De_Radiation");
+        }
+        return date;
+    }
+
+    // Rajoute un utilisateur sur la liste rouge
+    protected void addListeRouge(Connection c) throws SQLException {
+        String query = "INSERT INTO Liste_Rouge (Utilisateur_Id, Date_De_Radiation) VALUES (?,?)";
+        PreparedStatement prepStmt = c.prepareStatement(query);
+
+        prepStmt.setInt(1, this.id);
+
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+        String dateFormatee = date.format(formatter);
+
+        prepStmt.setString(2,dateFormatee);
 
         prepStmt.executeUpdate();
     }

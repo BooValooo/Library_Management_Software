@@ -66,9 +66,15 @@ public class UtilisateursController extends Controller{
         TableColumn<Utilisateur, Integer> maxEmpruntsCol = new TableColumn<>("Nombre maximal d'emprunts");
         maxEmpruntsCol.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getNombreMaxEmprunt()));
 
+        TableColumn<Utilisateur, String> listeRougeCol = new TableColumn<>("Liste rouge");
+        listeRougeCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getListeRouge()));
+
+        TableColumn<Utilisateur, String> dateListeRougeCol = new TableColumn<>("Date de radiation");
+        dateListeRougeCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDateListeRouge()));
+
 
         // Ajout des colonnes à la TableView
-        tableViewUtilisateurs.getColumns().addAll(idCol, nomCol, prenomCol, mailCol, telCol, catCol, nbEmpruntsCol, maxEmpruntsCol, tpsEmpruntCol);
+        tableViewUtilisateurs.getColumns().addAll(idCol, nomCol, prenomCol, mailCol, telCol, catCol, nbEmpruntsCol, maxEmpruntsCol, tpsEmpruntCol, listeRougeCol, dateListeRougeCol);
 
         majTableViewUtilisateurs();
     }
@@ -93,6 +99,11 @@ public class UtilisateursController extends Controller{
             utilisateur.setCategorie(utilisateur.getCategorieName(c));
             utilisateur.setNombreMaxEmprunt(resultSet.getInt("Nombre_Maximal_Emprunt"));
             utilisateur.setDureeMaxEmprunt(resultSet.getInt("Durée_Maximale_Emprunt"));
+            utilisateur.setDateListeRouge(utilisateur.getDateListeRouge(c));
+            if (utilisateur.getDateListeRouge().equals("")) {
+                utilisateur.setListeRouge("non");
+            }
+            else {utilisateur.setListeRouge("oui");}
 
             utilisateurs.add(utilisateur);
         }
@@ -111,7 +122,8 @@ public class UtilisateursController extends Controller{
         // Crée un menu contextuel
         ContextMenu contextMenu = new ContextMenu();
         MenuItem modifierProfil = new MenuItem("Modifier le profil");
-        contextMenu.getItems().addAll(modifierProfil);
+        MenuItem listeRouge = new MenuItem("Mettre sur liste rouge");
+        contextMenu.getItems().addAll(modifierProfil,listeRouge);
 
         // Définit un gestionnaire d'événements pour afficher le menu contextuel lors du clic droit
         tableViewUtilisateurs.setOnContextMenuRequested(event -> {
@@ -138,6 +150,19 @@ public class UtilisateursController extends Controller{
             scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
             stage.setScene(scene);
             stage.show();       //open the new stage
+        });
+
+        listeRouge.setOnAction(e -> {
+            Utilisateur selectedUtilisateur = tableViewUtilisateurs.getSelectionModel().getSelectedItem();
+            try {
+                selectedUtilisateur.addListeRouge(c);
+                afficherMessageInfo("Succès","Utilisateur radié", "L'utilisateur " + selectedUtilisateur.id + " a bien été radié.");
+                majTableViewUtilisateurs();
+            }
+            catch (SQLException ex) {
+                afficherMessageErreur("Erreur","Utilisateur non radié","L'utilisateur sélectionné n'a pas pu être radié.");
+            }
+
         });
 
         // Ferme le menu contextuel
@@ -185,5 +210,10 @@ public class UtilisateursController extends Controller{
         scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
         stage.setScene(scene);
         stage.show();       //open the new stage
+    }
+
+    @FXML
+    protected void onModifierClick() {
+        afficherMessageInfo("Notice","Modifier le profil d'un utilisateur","Pour modifier le profil d'un utilisateur, réalisez un clic droit sur son nom sur la page Utilisateurs de l'application.");
     }
 }
