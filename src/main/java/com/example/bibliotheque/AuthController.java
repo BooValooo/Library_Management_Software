@@ -38,8 +38,11 @@ public class AuthController extends Controller{
         cred.utilisateurMail = utilisateurIdInput.getText();
         cred.hashMdp = utilisateurMdpInput.getText();
         String hash = toHexString(getSHA(cred.hashMdp));
-        if (hash.equals(cred.getMdp(cred.utilisateurMail, c))) {
-            cred.utilisateurId = cred.getId(c);
+        cred.utilisateurId = cred.getId(c);
+        Utilisateur user = new Utilisateur();
+        user.setId(cred.utilisateurId);
+        if (!user.getDateListeRouge(c).equals("")) {afficherMessageErreur("Erreur","Utilisateur sur liste rouge","Vous avez été radié(e) de cette bibliothèque.");}
+        else if (hash.equals(cred.getMdp(cred.utilisateurMail, c))) {
             if (cred.getCategorie(c) == 2) { //Charge la page pour les clients
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
@@ -81,7 +84,7 @@ public class AuthController extends Controller{
             }
         }
          else {
-            afficherMessageErreur("Erreur", "Authentification échouée", "Si vous ne vous rappelez plus de vos identifiants, veuillez contacter le bibliothécaire.");
+            afficherMessageErreur("Erreur", "Authentification échouée", "Si vous ne vous rappelez plus de vos identifiants, veuillez contacter un bibliothécaire.");
         }
     }
 }

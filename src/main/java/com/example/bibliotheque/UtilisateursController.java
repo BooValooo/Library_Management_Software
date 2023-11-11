@@ -28,6 +28,7 @@ public class UtilisateursController extends Controller{
     private SearchUserController searchUserController;
     private UpdateUserController updateUserController;
     private AddUserController addUserController;
+    private EmpruntsAdminController empruntsAdminController;
     private Stage stage = new Stage();
 
     // Initialise l'affichage des utilisateurs.
@@ -123,7 +124,8 @@ public class UtilisateursController extends Controller{
         ContextMenu contextMenu = new ContextMenu();
         MenuItem modifierProfil = new MenuItem("Modifier le profil");
         MenuItem listeRouge = new MenuItem("Mettre sur liste rouge");
-        contextMenu.getItems().addAll(modifierProfil,listeRouge);
+        MenuItem historiqueEmprunts = new MenuItem("Historique des emprunts");
+        contextMenu.getItems().addAll(modifierProfil,listeRouge,historiqueEmprunts);
 
         // Définit un gestionnaire d'événements pour afficher le menu contextuel lors du clic droit
         tableViewUtilisateurs.setOnContextMenuRequested(event -> {
@@ -165,6 +167,30 @@ public class UtilisateursController extends Controller{
 
         });
 
+        historiqueEmprunts.setOnAction(e -> {
+            Utilisateur selectedUtilisateur = tableViewUtilisateurs.getSelectionModel().getSelectedItem();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("empruntsAdminView.fxml"));
+            Parent root1 = null;
+            try {
+                root1 = (Parent) fxmlLoader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            empruntsAdminController = fxmlLoader.getController();
+            try {
+                empruntsAdminController.initalizeTableViewEmprunts();
+                empruntsAdminController.majTableViewEmprunts(selectedUtilisateur);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            stage.setTitle("Historique des emprunts de l'utilisateur n° " + selectedUtilisateur.id);
+            Scene scene = new Scene(root1);
+            scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();       //open the new stage
+
+        });
+
         // Ferme le menu contextuel
         tableViewUtilisateurs.addEventHandler(MouseEvent.MOUSE_CLICKED,
                 event -> {
@@ -190,6 +216,13 @@ public class UtilisateursController extends Controller{
     }
 
 
+    /* Menu LISTE ROUGE */
+
+    @FXML
+    protected void onListeRougeClick() {
+        afficherMessageInfo("Notice","Radier un utilisateur","Pour radier un utilisateur, réalisez un clic droit sur son nom sur la page Utilisateurs de l'application, puis sélectionnez 'Mettre sur liste rouge'.");
+    }
+
     /* Menu AJOUTER ET MODIFIER */
 
     @FXML
@@ -214,6 +247,11 @@ public class UtilisateursController extends Controller{
 
     @FXML
     protected void onModifierClick() {
-        afficherMessageInfo("Notice","Modifier le profil d'un utilisateur","Pour modifier le profil d'un utilisateur, réalisez un clic droit sur son nom sur la page Utilisateurs de l'application.");
+        afficherMessageInfo("Notice","Modifier le profil d'un utilisateur","Pour modifier le profil d'un utilisateur, réalisez un clic droit sur son nom sur la page Utilisateurs de l'application, puis sélectionnez 'Modifier le profil'.");
+    }
+
+    @FXML
+    protected void onHistoriqueClick() {
+        afficherMessageInfo("Notice","Accéder à l'historique des emprunts d'un utilisateur","Pour Accéder à l'historique des emprunts d'un utilisateur, réalisez un clic droit sur son nom sur la page Utilisateurs de l'application, puis sélectionnez 'Historique des emprunts'.");
     }
 }

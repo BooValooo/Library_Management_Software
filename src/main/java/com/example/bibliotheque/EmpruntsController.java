@@ -20,12 +20,12 @@ import java.util.List;
 
 public class EmpruntsController extends Controller {
 
-    private Stage stage = new Stage();
+    protected Stage stage = new Stage();
     @FXML
-    private CheckBox empruntsEnCours;
+    protected CheckBox empruntsEnCours;
     @FXML
-    private TableView<Emprunt> tableViewEmprunts;
-    private ClientMainController clientMainController;
+    protected TableView<Emprunt> tableViewEmprunts;
+    protected ClientMainController clientMainController;
 
     public void setClientMainController(ClientMainController clientMainController) {
         this.clientMainController = clientMainController;
@@ -51,12 +51,12 @@ public class EmpruntsController extends Controller {
         TableColumn<Emprunt, String> dateRetourCol = new TableColumn<>("Date de retour (si rendu)");
         dateRetourCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDateFinReelle()));
 
+        TableColumn<Emprunt, Integer> idUserCol = new TableColumn<>("Id emprunteur");
+        idUserCol.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getUtilisateurId()));
+
 
         // Ajout des colonnes à la TableView
-        tableViewEmprunts.getColumns().addAll(isbnCol, titreCol, dateCol, dateLimiteCol, renduCol, dateRetourCol);
-
-
-        majTableViewEmprunts();
+        tableViewEmprunts.getColumns().addAll(idUserCol, isbnCol, titreCol, dateCol, dateLimiteCol, renduCol, dateRetourCol);
     }
 
     // Mise à jour de la tableView
@@ -68,7 +68,7 @@ public class EmpruntsController extends Controller {
         }
 
         // Requête pour récupérer les emprunts (en cours ou tous)
-        String query = "SELECT e.Id, e.Livre_Id, e.Date_Début, e.Date_Limite_Rendu, e.Rendu, e.Date_Rendu, l.ISBN FROM Emprunt AS e " +
+        String query = "SELECT e.Id, e.Utilisateur_Id, e.Livre_Id, e.Date_Début, e.Date_Limite_Rendu, e.Rendu, e.Date_Rendu, l.ISBN FROM Emprunt AS e " +
                 "JOIN Livre AS l ON l.Id = e.Livre_Id WHERE e.Utilisateur_Id = ? AND e.Rendu <= " + tousLesEmprunts;
         PreparedStatement prep_stmt = c.prepareStatement(query);
         prep_stmt.setInt(1, this.utilisateurId);
@@ -83,6 +83,7 @@ public class EmpruntsController extends Controller {
             livre.setId(resultSet.getInt("Livre_Id"));
             livre.setTitre(livre.getTitre(c));
             emprunt.setId(resultSet.getInt("Id"));
+            emprunt.setUtilisateurId(resultSet.getInt("Utilisateur_Id"));
             emprunt.setIsbn(resultSet.getInt("ISBN"));
             emprunt.setLivreId(resultSet.getInt("Livre_Id"));
             emprunt.setTitre(livre.getTitre());

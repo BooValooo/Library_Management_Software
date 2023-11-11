@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="603.0" prefWidth="1039.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.EmpruntsAdminController">
+    <children>
+        <TableView fx:id="tableViewEmprunts" layoutY="-1.0" onContextMenuRequested="#retourClick" prefHeight="603.0" prefWidth="1127.0" />
+    </children>
+</AnchorPane>

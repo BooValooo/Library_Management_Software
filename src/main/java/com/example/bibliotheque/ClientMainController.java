@@ -164,6 +164,7 @@ public class ClientMainController extends Controller {
         empruntsController = fxmlLoader.getController();
         empruntsController.setClientMainController(this);
         empruntsController.initalizeTableViewEmprunts();
+        empruntsController.majTableViewEmprunts();
         stage.setTitle("Emprunts");
         Scene scene = new Scene(root1);
         scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());

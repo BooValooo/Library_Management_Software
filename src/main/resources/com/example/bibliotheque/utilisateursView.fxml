@@ -14,13 +14,18 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Liste Rouge">
               <items>
-                <MenuItem mnemonicParsing="false" text="Ajouter un utilisateur sur liste rouge" />
+                <MenuItem mnemonicParsing="false" onAction="#onListeRougeClick" text="Ajouter un utilisateur sur liste rouge" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Ajouter et modifier">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#onAjouterClick" text="Ajouter un nouvel utilisateur" />
                   <MenuItem mnemonicParsing="false" onAction="#onModifierClick" text="Modifier le profil d'un utilisateur" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Historique des emprunts">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onHistoriqueClick" text="Accéder à l'historique des emprunts d'un utilisateur" />
               </items>
             </Menu>
          </menus></MenuBar>
