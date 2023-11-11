@@ -25,7 +25,11 @@ public class EmpruntsController extends Controller {
     private CheckBox empruntsEnCours;
     @FXML
     private TableView<Emprunt> tableViewEmprunts;
+    private ClientMainController clientMainController;
 
+    public void setClientMainController(ClientMainController clientMainController) {
+        this.clientMainController = clientMainController;
+    }
 
     protected void initalizeTableViewEmprunts() throws SQLException {
         //Création de colonnes pour la tableView
@@ -128,6 +132,7 @@ public class EmpruntsController extends Controller {
                     selectedEmprunt.retour(c);
                     majTableViewEmprunts();
                     afficherMessageInfo("Succès", "Livre Rendu", "Vous avez rendu le livre " + selectedEmprunt.titre + " avec succès.");
+                    clientMainController.majTableViewLivres();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

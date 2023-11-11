@@ -162,6 +162,7 @@ public class ClientMainController extends Controller {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("empruntsView.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         empruntsController = fxmlLoader.getController();
+        empruntsController.setClientMainController(this);
         empruntsController.initalizeTableViewEmprunts();
         stage.setTitle("Emprunts");
         Scene scene = new Scene(root1);
