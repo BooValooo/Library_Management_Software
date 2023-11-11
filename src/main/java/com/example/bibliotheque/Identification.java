@@ -145,5 +145,22 @@ public class Identification {
         prep_stmt.setString(1,mdpHashe);
         prep_stmt.executeUpdate();
     }
+
+    // Retourne la catégorie d'un utilisateur (pour permettre d'ouvrir la page admin ou la page client)
+    protected int getCategorie(Connection c) throws SQLException {
+        String query = "SELECT Catégorie_Id FROM Utilisateur AS u JOIN Identification AS i ON i.Utilisateur_Id = u.Id " +
+                "WHERE Utilisateur_Id = ?";
+        PreparedStatement prep_stmt = c.prepareStatement(query);
+        prep_stmt.setInt(1, this.utilisateurId);
+        ResultSet rs = prep_stmt.executeQuery();
+        Integer cat = null;
+
+        if (rs.next()) {
+            cat = rs.getInt("Catégorie_Id");
+        }
+
+        rs.close();
+        return cat;
+    }
 }
 

@@ -26,29 +26,30 @@ public class AuthController extends Controller{
     private PasswordField utilisateurMdpInput;
     @FXML
     private Button validerButton;
-    private ClientMainController mainController = null;
+    private ClientMainController clientMainController = null;
+    private AdminMainController adminMainController = null;
 
 
 
     @FXML
     //Ouverture de la vue principale de la bibliothèque si les identifiants sont corrects (il faudra différencier 2 cas : bibliothécaire et autre)
-    protected void onValidationClick() throws NoSuchAlgorithmException {
+    protected void onValidationClick() throws NoSuchAlgorithmException, SQLException, IOException {
         Identification cred = new Identification();
         cred.utilisateurMail = utilisateurIdInput.getText();
         cred.hashMdp = utilisateurMdpInput.getText();
         String hash = toHexString(getSHA(cred.hashMdp));
         if (hash.equals(cred.getMdp(cred.utilisateurMail, c))) {
-            try {
-
+            cred.utilisateurId = cred.getId(c);
+            if (cred.getCategorie(c) == 2) { //Charge la page pour les clients
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
-                mainController = fxmlLoader.getController();
+                clientMainController = fxmlLoader.getController();
 
                 //Permet de créer une session active pour l'utilisateur qui vient de se connecter
-                Controller.utilisateurId = cred.getId(c);
+                Controller.utilisateurId = cred.utilisateurId;
 
                 //Permet l'affichage des colonnes de la tableView des livres
-                mainController.initalizeTableViewLivres();
+                clientMainController.initalizeTableViewLivres();
 
                 stage.setTitle("Bienvenue");
                 Scene scene = new Scene(root1);
@@ -56,18 +57,32 @@ public class AuthController extends Controller{
                 stage.setScene(scene);
                 stage.show();       //open the new stage
 
+                Stage currentStage = (Stage) validerButton.getScene().getWindow();
+                currentStage.close();          //close the current stage
+            }
+            else if (cred.getCategorie(c) == 1) { //Charge la page pour les admins
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("adminMainView.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                adminMainController = fxmlLoader.getController();
+
+                //Permet de créer une session active pour l'utilisateur qui vient de se connecter
+                Controller.utilisateurId = cred.utilisateurId;
+
+                //Permet l'affichage des colonnes de la tableView des livres
+                adminMainController.initalizeTableViewLivres();
+
+                stage.setTitle("Bienvenue");
+                Scene scene = new Scene(root1);
+                scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+                stage.setScene(scene);
+                stage.show();       //open the new stage
 
                 Stage currentStage = (Stage) validerButton.getScene().getWindow();
                 currentStage.close();          //close the current stage
+            }
 
-            }
-            catch(IOException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
+         else {
             afficherMessageErreur("Erreur", "Authentification échouée", "Si vous ne vous rappelez plus de vos identifiants, veuillez contacter le bibliothécaire.");
         }
     }
-}
+}}

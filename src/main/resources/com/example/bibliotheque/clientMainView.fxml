@@ -31,11 +31,6 @@
               <MenuItem mnemonicParsing="false" onAction="#onSearchClick" text="Rechercher un livre" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Test">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#onTestClick" text="Test" />
-              </items>
-            </Menu>
         </menus>
       </MenuBar>
       <SplitPane fx:id="pane" prefHeight="460.0" prefWidth="1033.0" styleClass="background">

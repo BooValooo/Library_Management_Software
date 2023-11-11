@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vbox" alignment="CENTER" prefHeight="462.0" prefWidth="1145.0" spacing="20.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.AdminMainController">
+    <children>
+        <MenuBar prefHeight="33.0" prefWidth="1033.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Profil">
+                    <items>
+                        <MenuItem fx:id="closeMenu" mnemonicParsing="false" onAction="#onCloseClick" text="Fermer l'application" />
+                        <MenuItem fx:id="logOutMenu" mnemonicParsing="false" onAction="#onLogOutClick" text="Déconnexion" />
+                        <MenuItem mnemonicParsing="false" onAction="#onEmpruntsClick" text="Consulter mes emprunts" />
+                        <MenuItem mnemonicParsing="false" onAction="#onModifierMdpClick" text="Editer mon mot de passe" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Retour">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onRetourClick" text="Rendre un livre" />
+                        <MenuItem mnemonicParsing="false" onAction="#onRetourClick" text="Déclarer une perte" />
+                    </items>
+                </Menu>
+            <Menu mnemonicParsing="false" text="Supprimer">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Supprimer un livre" />
+                  <MenuItem mnemonicParsing="false" text="Supprimer un utilisateur" />
+              </items>
+            </Menu>
+                <Menu mnemonicParsing="false" text="Emprunter">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onEmprunterClick" text="Emprunter un livre" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Rechercher">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onSearchClick" text="Rechercher un livre" />
+                    </items>
+                </Menu>
+            <Menu mnemonicParsing="false" text="Ajouter">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Ajouter un nouveau livre" />
+                  <MenuItem mnemonicParsing="false" text="Ajouter un nouvel utilisateur" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Utilisateurs">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Afficher la page utilisateurs" />
+              </items>
+            </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane fx:id="pane" prefHeight="460.0" prefWidth="1033.0" styleClass="background">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="1031.0" styleClass="background">
+                    <children>
+                        <TableView fx:id="tableViewLivres" layoutY="-3.0" onContextMenuRequested="#empruntClick" prefHeight="415.0" prefWidth="1143.0">
+                            <columns>
+                            </columns>
+                        </TableView>
+                    </children></AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>

@@ -246,15 +246,6 @@ public class ClientMainController extends Controller {
         stage.show();       //open the new stage
 
     }
-
-
-
-    /* TEST */
-    @FXML
-    //Affiche les livres de la bibliothèque
-    protected void onTestClick() {
-        System.out.println(this.utilisateurId);
-    }
 }
 
 
