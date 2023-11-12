@@ -34,6 +34,8 @@ public class AuthController extends Controller{
     @FXML
     //Ouverture de la vue principale de la bibliothèque si les identifiants sont corrects (il faudra différencier 2 cas : bibliothécaire et autre)
     protected void onValidationClick() throws NoSuchAlgorithmException, SQLException, IOException {
+
+        // Récupération des infos utiles
         Identification cred = new Identification();
         cred.utilisateurMail = utilisateurIdInput.getText();
         cred.hashMdp = utilisateurMdpInput.getText();
@@ -41,9 +43,10 @@ public class AuthController extends Controller{
         cred.utilisateurId = cred.getId(c);
         Utilisateur user = new Utilisateur();
         user.setId(cred.utilisateurId);
-        if (hash.equals(cred.getMdp(cred.utilisateurMail, c))) {
-            if (!user.getDateListeRouge(c).equals("")) {afficherMessageErreur("Erreur","Utilisateur sur liste rouge","Vous avez été radié(e) de cette bibliothèque.");}
-            else if (cred.getCategorie(c) == 2) { //Charge la page pour les clients
+
+        if (hash.equals(cred.getMdp(cred.utilisateurMail, c))) { // Si identifiants corrects :
+            if (!user.getDateListeRouge(c).equals("")) {afficherMessageErreur("Erreur","Utilisateur sur liste rouge","Vous avez été radié(e) de cette bibliothèque.");} // Condition pas super propre mais fonctionnelle
+            else if (cred.getCategorie(c) == 2) { // Charge la page pour les clients
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clientMainView.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 clientMainController = fxmlLoader.getController();
@@ -58,12 +61,12 @@ public class AuthController extends Controller{
                 Scene scene = new Scene(root1);
                 scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
                 stage.setScene(scene);
-                stage.show();       //open the new stage
+                stage.show();       //Ouvre un nouveau stage
 
                 Stage currentStage = (Stage) validerButton.getScene().getWindow();
-                currentStage.close();          //close the current stage
+                currentStage.close();          //Ferme le stage actuel
             }
-            else if (cred.getCategorie(c) == 1) { //Charge la page pour les admins
+            else if (cred.getCategorie(c) == 1) { // Charge la page pour les admins
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("adminMainView.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 adminMainController = fxmlLoader.getController();
@@ -78,13 +81,13 @@ public class AuthController extends Controller{
                 Scene scene = new Scene(root1);
                 scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
                 stage.setScene(scene);
-                stage.show();       //open the new stage
+                stage.show();       //Ouvre un nouveau stage
 
                 Stage currentStage = (Stage) validerButton.getScene().getWindow();
-                currentStage.close();          //close the current stage
+                currentStage.close();          //Ferme le stage actuel
             }
         }
-         else {
+         else { // Identifiants incorrects
             afficherMessageErreur("Erreur", "Authentification échouée", "Si vous ne vous rappelez plus de vos identifiants, veuillez contacter un bibliothécaire.");
         }
     }

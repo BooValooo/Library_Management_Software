@@ -188,8 +188,9 @@ public class Utilisateur {
         return categorieName;
     }
 
-    // Permet de modifier le profil d'un utilisateur, ainsi que ses credentials si son email a été modifié (ne met pas automatiquement à jour la date de rendu des emprunts)
+    // Permet de modifier le profil d'un utilisateur, ainsi que ses credentials si son email a été modifié. Met automatiquement à jour la date de rendu des emprunts
     protected int setUser(Connection c) throws SQLException {
+        // Met à jour la table Utilisateur
         String query = "UPDATE Utilisateur SET Nom = ?, Prénom = ?, Mail = ?, Téléphone = ?, Catégorie_Id = ?, Durée_Maximale_Emprunt = ?, Nombre_Maximal_Emprunt = ? WHERE Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);
 
@@ -204,6 +205,7 @@ public class Utilisateur {
 
         int rowsAffected = prepStmt.executeUpdate();
 
+        // Met à jour la table d'identification (pour la connection à l'appli)
         String queryTwo = "UPDATE Identification SET Utilisateur_Mail = ? WHERE Utilisateur_Id = ?";
         PreparedStatement prepStmtTwo = c.prepareStatement(queryTwo);
 
@@ -211,6 +213,36 @@ public class Utilisateur {
         prepStmtTwo.setInt(2,this.id);
 
         prepStmtTwo.executeUpdate();
+
+        // Récupère des données qui vont nous permettre d'update les emprunts de l'utilisateur dont on vient de modifier le profil
+        String queryGet = "SELECT * FROM Emprunt WHERE (Utilisateur_Id = ? AND Rendu = 0)";
+        PreparedStatement prepStmtGet = c.prepareStatement(queryGet);
+
+        prepStmtGet.setInt(1,this.id);
+
+        ResultSet rs = prepStmtGet.executeQuery();
+
+        // Met à jour la table des emprunts (pour modifier la date de rendu exigée)
+        String queryThree = "UPDATE Emprunt SET Date_Limite_Rendu = ? WHERE Id = ?";
+        PreparedStatement prepStmtThree = c.prepareStatement(queryThree);
+
+        LocalDate dateDebut = null;
+        String dateRetour = null;
+        Emprunt emprunt = new Emprunt();
+        while (rs.next()) {
+            emprunt.setId(rs.getInt("Id"));
+            emprunt.setDateDebut(rs.getString("Date_Début"));
+
+            dateDebut = LocalDate.parse(emprunt.getDateDebut());
+            dateRetour = this.getDateLimiteEmprunt(c,dateDebut);
+
+            prepStmtThree.setString(1,dateRetour);
+            prepStmtThree.setInt(2,emprunt.getId());
+
+            prepStmtThree.executeUpdate();
+        }
+
+
 
         return rowsAffected;
     }

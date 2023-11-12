@@ -40,11 +40,11 @@ public class UpdateUserController extends Controller{
         tpsEmpruntInput.setText(selectedUtilisateur.getDureeMaxEmprunt().toString());
         nbEmpruntsInput.setText(selectedUtilisateur.getNombreMaxEmprunt().toString());
 
-        // Configurer les choix de la ChoiceBox
-        ObservableList<String> categories = FXCollections.observableArrayList("Bibliothécaire", "Client");
+        // Configuration des choix de la ChoiceBox
+        ObservableList<String> categories = FXCollections.observableArrayList("Bibliothécaire", "Client"); // Raccourci pas fou, il faudrait aller chercher dans la BDD les différentes catégories pour faire ça proprement
         categorieInput.setItems(categories);
 
-        // Préselectionner une valeur
+        // Préselection d'une valeur
         categorieInput.setValue(selectedUtilisateur.getCategorie());
     }
 
@@ -59,7 +59,7 @@ public class UpdateUserController extends Controller{
         String categorie = categorieInput.getValue();
         int categorieId = 2;
 
-        if (categorie.equals("Bibliothécaire")) {categorieId=1;}
+        if (categorie.equals("Bibliothécaire")) {categorieId=1;} // Pareil, raccourci pas fou, mais ça a le mérite d'être rapide et de m'éviter des requêtes SQL
 
         Utilisateur utilisateurAJour = new Utilisateur();
         utilisateurAJour.setId(selectedUtilisateur.id);
