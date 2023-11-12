@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +19,12 @@ public class AdminMainController extends ClientMainController {
     private SearchAdminController searchAdminController = null;
     private UtilisateursController utilisateursController = null;
     private EmpruntsAdminController empruntsAdminController = null;
+
+    /* Menu Supprimer */
+    @FXML
+    protected void onSupprimerClick() {
+        afficherMessageInfo("Notice","Supprimer un livre", "Pour retirer un livre de la bibliothèque, réalisez un clic droit dessus, et sélectionnez 'Supprimer'.");
+    }
 
 
     /* Menu Rechercher */
@@ -36,6 +44,13 @@ public class AdminMainController extends ClientMainController {
 
     }
 
+    /* Menu Ajouter */
+
+    @FXML
+    protected void onAjouterUtilisateurClick() {
+        afficherMessageInfo("Notice","Créer un nouveau profil utilisateur", "Pour créer un nouveau profil d'utilisateur, rendez-vous dans le menu 'Utilisateurs', puis cliquez sur 'Ajouter et modifier'.");
+    }
+
     /* Menu Utilisateurs */
     @FXML
     protected void onUtilisateursClick() throws IOException, SQLException {
@@ -52,13 +67,15 @@ public class AdminMainController extends ClientMainController {
 
     @FXML
     @Override
+    // Actions possibles à réaliser après un clic droit (après sélection d'un livre)
     protected void empruntClick() {
 
         // Crée un menu contextuel
         ContextMenu contextMenu = new ContextMenu();
         MenuItem emprunterLivre = new MenuItem("Emprunter");
         MenuItem historiqueEmprunts = new MenuItem("Historique des emprunts");
-        contextMenu.getItems().addAll(emprunterLivre, historiqueEmprunts);
+        MenuItem supprimerLivre = new MenuItem("Supprimer");
+        contextMenu.getItems().addAll(emprunterLivre, historiqueEmprunts, supprimerLivre);
 
         // Définit un gestionnaire d'événements pour afficher le menu contextuel lors du clic droit
         tableViewLivres.setOnContextMenuRequested(event -> {
@@ -130,5 +147,29 @@ public class AdminMainController extends ClientMainController {
             stage.show();       //open the new stage
 
         });
+
+        supprimerLivre.setOnAction(e -> {
+            Livre selectedLivre = tableViewLivres.getSelectionModel().getSelectedItem();
+            try {
+                selectedLivre.supprime(c);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            afficherMessageInfo("Succès","Livre supprimé", "Le livre n° "+selectedLivre.id +" a bien été supprimé avec succès.");
+            try {
+                majTableViewLivres();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+        });
+
+        // Ferme le menu contextuel
+        tableViewLivres.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                event -> {
+                    if (event.getButton() == MouseButton.PRIMARY) { // Vérifiez que le clic est un clic gauche
+                        contextMenu.hide(); // Ferme le menu contextuel
+                    }
+                });
     }
 }

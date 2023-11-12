@@ -31,7 +31,7 @@ public class SearchAdminController extends SearchController{
 
         // Requête pour récupérer tous les livres respectant la recherche
         if (!isLivresEnRetardSelected) {
-            String query = "SELECT DISTINCT e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible, l.Id, l.Année_Première_Parution FROM Edition AS e " +
+            String query = "SELECT DISTINCT e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible, l.Id, e.Année_Première_Parution FROM Edition AS e " +
                     "JOIN Association_Auteurs_Edition AS aae ON e.ISBN = aae.ISBN " +
                     "JOIN Auteur AS a ON aae.Auteur_Id = a.Id " +
                     "JOIN Livre AS l ON l.ISBN = e.ISBN " +
@@ -40,7 +40,7 @@ public class SearchAdminController extends SearchController{
         }
 
         else {
-            String query = "SELECT DISTINCT e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible, l.Id, l.Année_Première_Parution FROM Edition AS e " +
+            String query = "SELECT DISTINCT e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible, l.Id, e.Année_Première_Parution FROM Edition AS e " +
                     "JOIN Association_Auteurs_Edition AS aae ON e.ISBN = aae.ISBN " +
                     "JOIN Auteur AS a ON aae.Auteur_Id = a.Id " +
                     "JOIN Livre AS l ON l.ISBN = e.ISBN " +

@@ -18,13 +18,11 @@
                 <Menu mnemonicParsing="false" text="Retour">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#onRetourClick" text="Rendre un livre" />
-                        <MenuItem mnemonicParsing="false" onAction="#onRetourClick" text="Déclarer une perte" />
                     </items>
                 </Menu>
             <Menu mnemonicParsing="false" text="Supprimer">
               <items>
-                <MenuItem mnemonicParsing="false" text="Supprimer un livre" />
-                  <MenuItem mnemonicParsing="false" text="Supprimer un utilisateur" />
+                <MenuItem mnemonicParsing="false" onAction="#onSupprimerClick" text="Supprimer un livre" />
               </items>
             </Menu>
                 <Menu mnemonicParsing="false" text="Emprunter">
@@ -40,7 +38,7 @@
             <Menu mnemonicParsing="false" text="Ajouter">
               <items>
                 <MenuItem mnemonicParsing="false" text="Ajouter un nouveau livre" />
-                  <MenuItem mnemonicParsing="false" text="Ajouter un nouvel utilisateur" />
+                  <MenuItem mnemonicParsing="false" onAction="#onAjouterUtilisateurClick" text="Ajouter un nouvel utilisateur" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Utilisateurs">

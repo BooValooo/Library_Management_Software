@@ -77,4 +77,17 @@ public class Livre extends Edition {
         preparedStatement.setString(4, dateLimiteRendu);
         preparedStatement.executeUpdate();
     }
+
+    // Supprime un livre de la base de donnée, ainsi que toutes les lignes qui y font référence
+    protected void supprime(Connection c) throws SQLException {
+        String query = "DELETE FROM Emprunt WHERE Livre_Id = ?";
+        PreparedStatement prep_stmt = c.prepareStatement(query);
+        prep_stmt.setInt(1, this.id);
+        prep_stmt.executeUpdate();
+
+        String queryTwo = "DELETE FROM Livre WHERE Id = ?";
+        PreparedStatement prep_stmtTwo = c.prepareStatement(queryTwo);
+        prep_stmtTwo.setInt(1, this.id);
+        prep_stmtTwo.executeUpdate();
+    }
 }

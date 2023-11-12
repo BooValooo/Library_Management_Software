@@ -70,7 +70,7 @@ public class ClientMainController extends Controller {
 
     protected void majTableViewLivres() throws SQLException {
         // Requête pour récupérer les livres
-        String query = "SELECT l.Id, e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible, l.Année_Première_Parution FROM Edition AS e JOIN Livre AS l ON e.ISBN = l.ISBN";
+        String query = "SELECT l.Id, e.ISBN, e.Titre, e.Année_Edition, e.Mot_Clé_1, e.Editeur, l.Disponible, e.Année_Première_Parution FROM Edition AS e JOIN Livre AS l ON e.ISBN = l.ISBN";
         ResultSet resultSet = c.createStatement().executeQuery(query);
 
         List<Livre> livres = new ArrayList<>();
