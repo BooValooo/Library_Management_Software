@@ -30,7 +30,6 @@ public class AuthController extends Controller{
     private AdminMainController adminMainController = null;
 
 
-
     @FXML
     //Ouverture de la vue principale de la bibliothèque si les identifiants sont corrects (il faudra différencier 2 cas : bibliothécaire et autre)
     protected void onValidationClick() throws NoSuchAlgorithmException, SQLException, IOException {

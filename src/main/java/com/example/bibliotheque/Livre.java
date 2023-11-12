@@ -10,8 +10,6 @@ public class Livre extends Edition {
 
     Boolean disponible = null;
 
-    Integer anneePremiereParution = null;
-
     public Integer getId() {
         return id;
     }

@@ -16,14 +16,19 @@ package Utilisation_client {
     (Consulter emprunts) as consultation
     (Rechercher un livre) as recherche
     (Consulter livres disponibles)
+    (Editer mot de passe)
 }
 
 package Utilisation_admin {
     (Ajouter un livre) as ajout
     (Supprimer un livre) as suppression
     (Créer un adhérent) as création
-    (Supprimer un adhérent) as déserteur
-    (Accéder aux adhérents) as espion
+    (Accéder aux profils des adhérents) as espion
+    (Modifier un profil)
+    (Consulter historique emprunts d'un adhérant)
+    (Consulter historique emprunts d'un livre)
+    (Mettre un adhérent sur liste rouge)
+    (Consulter  emprunts en retard)
 }
 
 

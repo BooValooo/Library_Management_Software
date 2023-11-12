@@ -1,0 +1,113 @@
+@startuml
+
+
+abstract class Controller{
+    private static String url
+    private static String driverName
+    static Connection c
+    static Integer utilisateurId
+    public static Connection getConnection()
+    public void afficherMessageErreur(String titre, String entete, String contenu)
+    public void afficherMessageInfo(String titre, String entete, String contenu)
+}
+
+class AddLivreController{
+    private void onValiderClick()
+}
+
+class AddUserController{
+    protected void onValidationClick()
+}
+
+class AdminMainController{
+    protected void onSupprimerClick()
+    protected void onSearchClick()
+    protected void onAjouterLivreClick()
+    protected void onAjouterUtilisateurClick()
+    protected void onUtilisateursClick()
+    protected void empruntClick()
+}
+
+class AuthController{
+    protected void onValidationClick()
+}
+
+class ClientMainController{
+    protected void initalizeTableViewLivres()
+    protected void majTableViewLivres()
+    protected void onCloseClick()
+    protected void onLogOutClick()
+    protected void  onModifierMdpClick()
+    protected void onRetourClick()
+    protected void onEmprunterClick()
+    protected void onEmpruntsClick()
+    protected void empruntClick()
+    protected void onSearchClick()
+}
+
+class EditPasswordController{
+    protected void onValidationClick()
+}
+
+class EmpruntsAdminController{
+    protected void majTableViewEmprunts(Utilisateur user)
+    protected void majTableViewEmprunts(Livre livreSelectionne)
+}
+
+class EmpruntsController{
+    protected void initalizeTableViewEmprunts()
+    protected void majTableViewEmprunts()
+    protected void onTousLesEmpruntsClick()
+    protected void retourClick()
+}
+
+class SearchAdminController{
+    protected void onRechercherClick()
+}
+
+class SearchController{
+    protected void onRechercherClick()
+}
+
+class SearchUserController{
+    protected void onRechercherClick()
+}
+
+class UpdateUserController{
+    protected void initializeInput()
+    protected void onValidationClick()
+}
+
+class UtilisateursController{
+    protected void initializeTableViewUtilisateurs()
+    protected void majTableViewUtilisateurs()
+    protected void onUtilisateurClick()
+    protected void onRechercherClick()
+    protected void onListeRougeClick()
+    protected void onAjouterClick()
+    protected void onModifierClick()
+    protected void onHistoriqueClick()
+}
+
+class MainApplication{
+    public void start(Stage stage)
+    public static void main(String[] args)
+}
+
+AddLivreController <|-- Controller
+AddUserController <|-- Controller
+AuthController <|-- Controller
+ClientMainController <|-- Controller
+EditPasswordController <|-- Controller
+EmpruntsController <|-- Controller
+SearchController <|-- Controller
+SearchUserController <|-- Controller
+UpdateUserController <|-- Controller
+UtilisateursController <|-- Controller
+
+AdminMainController <|-- ClientMainController
+EmpruntsAdminController <|-- EmpruntsController
+SearchAdminController <|-- SearchController
+
+
+@enduml

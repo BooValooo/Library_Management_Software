@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor User
+boundary IHM
+control AuthController
+control ClientMainController
+database Database
+
+
+User -> IHM: Authentication Request (mail, password)
+IHM -> AuthController: mail, password
+AuthController -> Database: SELECT PasswordDB FROM Identification WHERE Utilisateur_Mail = mail
+AuthController <- Database: PasswordDB
+AuthController <- AuthController: If Password=PasswordDB : set userId to Id
+ClientMainController <- AuthController: if (Identification succes) {open}
+
+
+
+ClientMainController -> Database: initializeTableViewLivres() : SELECT * FROM ...
+ClientMainController <- Database: Data
+IHM <- ClientMainController: Callback
+User <- IHM: Display data
+
+User -> IHM: Log out
+IHM -> ClientMainController: Log out
+ClientMainController -> ClientMainController: set userId to null
+AuthController <- ClientMainController: if (Logged out successfully) {open}
+IHM <- AuthController: Callback
+User <- IHM: Display Auth View
+
+@enduml

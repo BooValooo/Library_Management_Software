@@ -19,6 +19,7 @@ public class Edition {
     String motCle4 = "";
     String motCle5 = "";
     Vector<String> auteurs = null;
+    Integer anneePremiereParution = null;
 
 
     public Integer getIsbn() {
@@ -82,7 +83,7 @@ public class Edition {
     }
 
     //Permet de récupérer les auteurs d'un livre dont on connaît l'ISBN
-    public Vector<String> getAuthors(Connection c) {
+    protected Vector<String> getAuthors(Connection c) {
 
         try {
             String sql = "SELECT Prénom, Nom FROM Auteur JOIN Association_Auteurs_Edition " +
@@ -113,7 +114,7 @@ public class Edition {
     }
 
     //Convertit le Vector<String> en un seul String
-    public String getAuteursAsString() {
+    protected String getAuteursAsString() {
         if (auteurs == null) {
             return "";
         }

@@ -1,90 +1,112 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class Utilisateur {
-Id (INT)
-Nom (STRING)
-Prénom (STRING)
-Adresse mail (STRING)
-Catégorie_Id (INT)
-Durée maximale d'emprunt (INT)
-Nombre maximal empruntés (INT)
 
+class Auteur {
+    Integer id
+    String prenom
+    String nom
+    Integer anneeNaissance
+    protected Boolean existeDeja(Connection c)
+    protected int ajouter(Connection c)
 }
 
-class Bibliothèque {
-}
-
-class BDD{
+class Catégorie {
+    Integer id
+    String nom
+    protected Integer getNombreMaxEmpruntRef(Connection c)
+    protected Integer getDuréeMaxEmpruntRef(Connection c)
 }
 
 class Edition {
-ISBN (INT)
-Editeur (STRING)
-Année d'édition (INT)
-Titre (STRING)
-Auteur_Id_List (INT LIST)
-Mots clés (STRING LIST)
-}
-
-class Livre {
-Id (INT)
-}
-
-class Auteur {
-Id (INT)
-Prénom (STRING)
-Nom (STRING)
-Année de naissance (INT)
+    Integer isbn
+    String editeur
+    Integer anneeEdition
+    Integer anneePremiereParution
+    String titre
+    String motCle1
+    String motCle2
+    String motCle3
+    String motCle4
+    String motCle5
+    Vector<String> auteurs
+    protected Vector<String> getAuthors(Connection c)
+    protected String getAuteursAsString()
 }
 
 class Emprunt {
-Date (DATE)
-Livre_Id (INT)
-Emprunteur_Id (INT)
-Rendu (BOOL)
+    Integer id
+    Integer isbn
+    String dateDebut
+    String dateFinPrevue
+    String dateFinReelle
+    Integer livreId
+    String titre
+    Integer UtilisateurId
+    Boolean rendu
+    protected void retour(Connection c)
 }
 
 class Identification {
-Id_Utilisateur (INT)
-Mot de passe (STRING)
+    Integer utilisateurId
+    String utilisateurMail
+    String hashMdp
+    protected String getMdp(Connection c)
+    protected String getMdp(String utilisateurMail, Connection c)
+    protected Integer getId(Connection c)
+    public static byte[] getSHA(String input)
+    public static String toHexString(byte[] hash)
+    protected void setMdpBdd(Connection c, String mdp)
+    protected int getCategorie(Connection c)
 }
 
-class Adhérent {
+class Livre {
+    Integer id
+    Boolean disponible
+    protected String getTitre(Connection c)
+    protected void emprunt(Connection c, Integer utilisateurId, Integer livreId, String dateDebut, String dateLimiteRendu)
+    protected void supprime(Connection c)
+    protected void ajoute(Connection c, Vector<Integer> idsAuteurs)
 }
 
-Class Catégorie {
-Id (INT)
-Nom (STRING)
-Durée maximale d'emprunt référence (INT)
-Nombre maximal de livres empruntés simultanèment référence (INT)
+class Utilisateur {
+    Integer id
+    String nom
+    String prenom
+    String mail
+    String telephone
+    Integer categorieId
+    String categorie
+    Integer dureeMaxEmprunt
+    Integer nombreMaxEmprunt
+    String listeRouge
+    String dateListeRouge
+    protected Integer getId(Connection c)
+    protected String getDateLimiteEmprunt(Connection c, LocalDate dateDebutEmprunt)
+    protected int getNombreMaxEmprunts(Connection c)
+    protected int getNombreEmprunts(Connection c)
+    protected String getCategorieName(Connection c)
+    protected int setUser(Connection c)
+    protected void addUser(Connection c)
+    protected String getDateListeRouge(Connection c)
+    protected void addListeRouge(Connection c)
 }
 
-class ListeRouge {
-Utilisateur_Id (INT)
-Date de radiation (DATE)
-}
 
-class Controller{
-}
+Livre "0,*" <|-- "1" Edition
 
-Bibliothécaire <|-- Utilisateur
-Adhérent <|- Utilisateur
-
-Livre "(0,*)" <|-- "1" Edition
-Utilisateur --o Bibliothèque
-Livre --o Bibliothèque
-
-Identification -- Utilisateur
-Utilisateur -- Catégorie
-Adhérent -- ListeRouge
-Auteur -- Edition
-Emprunt -- Utilisateur
-Emprunt -- Livre
+Utilisateur "1" -- "1" Catégorie
+Auteur "1,*" -- "1,*" Edition
+Emprunt "0,*"--"1" Utilisateur
+Emprunt "0,*" -- "1" Livre
+Identification "1" -- "1" Utilisateur
 
 
-enum TimeUnit {
-Jours
-}
+
+
+
+
+
+
 
 @enduml
