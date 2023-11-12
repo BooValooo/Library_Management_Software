@@ -26,25 +26,6 @@ public abstract class Controller {
         alert.showAndWait();
     }
 
-    public void afficherMessageSucces(String titre, String entete, String contenu) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initStyle(StageStyle.UTILITY); // Pour éviter les boutons de fermeture de la fenêtre
-        alert.setTitle(titre);
-        alert.setHeaderText(entete);
-        alert.setContentText(contenu);
-
-        Iterator<ButtonType> iterator = alert.getButtonTypes().iterator();
-        while (iterator.hasNext()) {
-            ButtonType bouton = iterator.next();
-            if (bouton.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
-                iterator.remove(); // Supprime le bouton "Annuler"
-            }
-        }
-
-        String css = this.getClass().getResource("styles.css").toExternalForm();
-        alert.getDialogPane().getStylesheets().add(css);
-        alert.showAndWait();
-    }
 
     public void afficherMessageInfo(String titre, String entete, String contenu) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

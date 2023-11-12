@@ -8,8 +8,6 @@ import java.sql.SQLException;
 public class Categorie {
     Integer id = null;
     String nom = null;
-    Integer dureeMaxEmpruntRef = null;
-    Integer nombreMaxEmpruntRef = null;
 
     public Integer getId() {
         return id;
@@ -27,22 +25,7 @@ public class Categorie {
         this.nom = nom;
     }
 
-    public Integer getDureeMaxEmpruntRef() {
-        return dureeMaxEmpruntRef;
-    }
-
-    public void setDureeMaxEmpruntRef(Integer dureeMaxEmpruntRef) {
-        this.dureeMaxEmpruntRef = dureeMaxEmpruntRef;
-    }
-
-    public Integer getNombreMaxEmpruntRef() {
-        return nombreMaxEmpruntRef;
-    }
-
-    public void setNombreMaxEmpruntRef(Integer nombreMaxEmpruntRef) {
-        this.nombreMaxEmpruntRef = nombreMaxEmpruntRef;
-    }
-
+    // Récupère le nombre d'emprunts max de référence pour une catégorie dont on connait l'id
     protected Integer getNombreMaxEmpruntRef(Connection c) throws SQLException {
         String query = "SELECT Nombre_Max_Emprunt_Ref From Catégorie WHERE Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);
@@ -58,6 +41,7 @@ public class Categorie {
         return nombreEmprunts;
     }
 
+    // Récupère la durée d'emprunt de référence pour une catégorie dont on connait l'id
     protected Integer getDuréeMaxEmpruntRef(Connection c) throws SQLException {
         String query = "SELECT Durée_Max_Emprunt_Ref From Catégorie WHERE Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);

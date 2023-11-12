@@ -61,42 +61,20 @@ public class Edition {
         this.motCle1 = motCle1;
     }
 
-
-
-    public String getMotCle2() {
-        return motCle2;
-    }
-
     public void setMotCle2(String motCle2) {
         this.motCle2 = motCle2;
-    }
-
-    public String getMotCle3() {
-        return motCle3;
     }
 
     public void setMotCle3(String motCle3) {
         this.motCle3 = motCle3;
     }
 
-    public String getMotCle4() {
-        return motCle4;
-    }
-
     public void setMotCle4(String motCle4) {
         this.motCle4 = motCle4;
     }
 
-    public String getMotCle5() {
-        return motCle5;
-    }
-
     public void setMotCle5(String motCle5) {
         this.motCle5 = motCle5;
-    }
-
-    public Vector<String> getAuteurs() {
-        return auteurs;
     }
 
     public void setAuteurs(Vector<String> auteurs) {

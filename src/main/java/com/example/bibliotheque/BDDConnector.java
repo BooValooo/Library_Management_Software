@@ -11,6 +11,8 @@ public class BDDConnector {
     private static String driverName = "org.sqlite.JDBC";
     private static Connection con;
 
+    /*  Fonctions qui pourraient être utiles si je décidais de gérer plusieurs bases de données (par exemple, système de gestion de différentes bibliothèques)
+
     public static String getUrl() {
         return url;
     }
@@ -35,6 +37,8 @@ public class BDDConnector {
         BDDConnector.con = con;
     }
 
+
+     */
     public static Connection getConnection() {
         try {
             Class.forName(driverName);

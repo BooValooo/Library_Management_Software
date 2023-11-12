@@ -12,7 +12,6 @@ public class Emprunt {
     String dateFinReelle = null;
     Integer livreId = null;
     String titre = null;
-
     Integer UtilisateurId = null;
     Boolean rendu = null;
 
@@ -29,10 +28,6 @@ public class Emprunt {
         this.isbn = isbn;
     }
 
-    public Integer getLivreId() {
-        return livreId;
-    }
-
     public void setLivreId(Integer livreId) {
         this.livreId = livreId;
     }
@@ -45,16 +40,7 @@ public class Emprunt {
         UtilisateurId = utilisateurId;
     }
 
-    public Boolean getRendu() {
-        return rendu;
-    }
-
     public String getRenduString() {if (rendu) {return("oui");} else {return("non");}}
-
-
-    public void setRendu(Boolean rendu) {
-        this.rendu = rendu;
-    }
 
     public void setRendu(Integer rendu) {
         if (rendu==0) {this.rendu = false;} else {this.rendu = true;}

@@ -20,7 +20,6 @@ import java.util.List;
 
 public class EmpruntsController extends Controller {
 
-    protected Stage stage = new Stage();
     @FXML
     protected CheckBox empruntsEnCours;
     @FXML

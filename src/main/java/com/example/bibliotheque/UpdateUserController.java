@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
+// Pour mettre à jour le profil d'un utilisateur
 public class UpdateUserController extends Controller{
     UtilisateursController utilisateursController = null;
     Stage stage = null;
@@ -32,6 +33,7 @@ public class UpdateUserController extends Controller{
     protected void setUtilisateursController(UtilisateursController u) {utilisateursController=u;}
     protected void setStage(Stage s) {stage=s;}
 
+    // Pré-remplit les champs d'input avec les données déjà existantes
     protected void initializeInput() {
         nomInput.setText(selectedUtilisateur.getNom());
         prenomInput.setText(selectedUtilisateur.getPrenom());
@@ -49,6 +51,7 @@ public class UpdateUserController extends Controller{
     }
 
     @FXML
+    // Pour mettre à jour le profil de l'utilisateur sélectionné
     protected void onValidationClick() throws SQLException {
         String nom = nomInput.getText();
         String prenom = prenomInput.getText();

@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+// Pour afficher seulement les livres voulus
 public class SearchAdminController extends SearchController{
     @FXML
     private CheckBox livresEnRetard;
@@ -82,6 +83,7 @@ public class SearchAdminController extends SearchController{
         // Création d'une ObservableList à partir de la liste de livres
         ObservableList<Livre> livresObservable = FXCollections.observableArrayList(livres);
 
+        // Affiche les livres qui répondent aux contraintes
         mainController.tableViewLivres.setItems(livresObservable);
 
     }

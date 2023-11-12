@@ -8,7 +8,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -97,7 +96,7 @@ public class AdminMainController extends ClientMainController {
         });
 
         // Associe des actions aux éléments du menu
-        emprunterLivre.setOnAction(e -> {
+        emprunterLivre.setOnAction(e -> { // Emprunte un livre pour l'utilisateur actuellement connecté si toutes les conditions nécessaires sont réunies
             Livre selectedLivre = tableViewLivres.getSelectionModel().getSelectedItem();
             Utilisateur user = new Utilisateur();
             user.id = utilisateurId;
@@ -138,7 +137,7 @@ public class AdminMainController extends ClientMainController {
             }
         });
 
-        historiqueEmprunts.setOnAction(e -> {
+        historiqueEmprunts.setOnAction(e -> { // Affiche l'historique des emprunts d'uun livre
             Livre selectedLivre = tableViewLivres.getSelectionModel().getSelectedItem();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("empruntsAdminView.fxml"));
             Parent root1 = null;
@@ -162,7 +161,7 @@ public class AdminMainController extends ClientMainController {
 
         });
 
-        supprimerLivre.setOnAction(e -> {
+        supprimerLivre.setOnAction(e -> { // Supprime un livre de la bibliothèque
             Livre selectedLivre = tableViewLivres.getSelectionModel().getSelectedItem();
             try {
                 selectedLivre.supprime(c);

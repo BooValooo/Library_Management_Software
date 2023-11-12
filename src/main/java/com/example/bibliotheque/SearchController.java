@@ -13,9 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Pour afficher seulement les livres voulus
 public class SearchController extends Controller {
-    @FXML
-    private Button rechercherButton;
     @FXML
     protected TextField titreInput;
     @FXML
@@ -67,6 +66,7 @@ public class SearchController extends Controller {
         // Création d'une ObservableList à partir de la liste de livres
         ObservableList<Livre> livresObservable = FXCollections.observableArrayList(livres);
 
+        // Affichage des livres répondant aux contraintes
         mainController.tableViewLivres.setItems(livresObservable);
     }
 }

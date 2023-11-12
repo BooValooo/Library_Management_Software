@@ -11,6 +11,7 @@ import java.util.List;
 
 public class EmpruntsAdminController extends EmpruntsController{
 
+    // Met à jour la tableView des emprunts d'un utilisateur donné
     protected void majTableViewEmprunts(Utilisateur user) throws SQLException {
 
         // Requête pour récupérer les emprunts (en cours ou tous)
@@ -48,6 +49,7 @@ public class EmpruntsAdminController extends EmpruntsController{
         tableViewEmprunts.setItems(empruntsObservable);
     }
 
+    // Met à jour la tableView des emprunts d'un livre donné
     protected void majTableViewEmprunts(Livre livreSelectionne) throws SQLException {
 
         // Requête pour récupérer les emprunts (en cours ou tous)

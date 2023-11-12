@@ -20,10 +20,6 @@ public class Livre extends Edition {
         this.id = id;
     }
 
-    public Boolean getDisponible() {
-        return disponible;
-    }
-
     public String getDisponibleString() {
         if (this.disponible) {
             return ("oui");

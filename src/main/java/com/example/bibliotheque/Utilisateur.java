@@ -60,10 +60,6 @@ public class Utilisateur {
         this.telephone = telephone;
     }
 
-    public Integer getCategorieId() {
-        return categorieId;
-    }
-
     public void setCategorieId(Integer categorieId) {
         this.categorieId = categorieId;
     }
@@ -178,6 +174,7 @@ public class Utilisateur {
         return nombreEmprunts;
     }
 
+    // Renvoie la catégorie d'un utilisateur
     protected String getCategorieName(Connection c) throws SQLException {
         String query = "SELECT c.Nom FROM Catégorie AS c JOIN Utilisateur AS u ON u.Catégorie_Id = c.Id WHERE u.Id = ?";
         PreparedStatement prepStmt = c.prepareStatement(query);

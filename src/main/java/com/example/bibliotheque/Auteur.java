@@ -20,10 +20,6 @@ public class Auteur {
         this.id = id;
     }
 
-    public String getPrenom() {
-        return prenom;
-    }
-
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
@@ -34,10 +30,6 @@ public class Auteur {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public Integer getAnneeNaissance() {
-        return anneeNaissance;
     }
 
     public void setAnneeNaissance(Integer anneeNaissance) {

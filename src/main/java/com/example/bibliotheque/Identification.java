@@ -12,30 +12,6 @@ public class Identification {
     String hashMdp = null;
 
 
-    public Integer getUtilisateurId() {
-        return utilisateurId;
-    }
-
-    public void setUtilisateurId(Integer utilisateurId) {
-        this.utilisateurId = utilisateurId;
-    }
-
-    public String getUtilisateurMail() {
-        return utilisateurMail;
-    }
-
-    public void setUtilisateurMail(String utilisateurMail) {
-        this.utilisateurMail = utilisateurMail;
-    }
-
-    public String getHashMdp() {
-        return hashMdp;
-    }
-
-    public void setHashMdp(String hashMdp) {
-        this.hashMdp = hashMdp;
-    }
-
     //Permet de récupérer le hash du MdP d'un utilisateur ayant donné son Id
     protected String getMdp(Connection c) {
 
