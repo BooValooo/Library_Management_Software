@@ -99,6 +99,7 @@ public class Identification {
             }
 
             rs.close();
+            prep_stmt.close();
             return id;
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -144,6 +145,7 @@ public class Identification {
         String mdpHashe = toHexString(getSHA(mdp));
         prep_stmt.setString(1,mdpHashe);
         prep_stmt.executeUpdate();
+        prep_stmt.close();
     }
 
     // Retourne la catégorie d'un utilisateur (pour permettre d'ouvrir la page admin ou la page client)
@@ -160,6 +162,7 @@ public class Identification {
         }
 
         rs.close();
+        prep_stmt.close();
         return cat;
     }
 }

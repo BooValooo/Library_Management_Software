@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="881.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.bibliotheque.AddLivreController">
+    <children>
+        <Button layoutX="536.0" layoutY="491.0" mnemonicParsing="false" onAction="#onValiderClick" prefHeight="31.0" prefWidth="133.0" styleClass="primary-button" text="Valider" />
+        <Label layoutX="329.0" layoutY="39.0" styleClass="label" text="Ajouter un nouveau livre">
+            <font>
+                <Font size="18.0" />
+            </font></Label>
+        <Label layoutX="74.0" layoutY="113.0" styleClass="label" text="ISBN">
+            <font>
+                <Font size="14.0" />
+            </font></Label>
+        <TextField fx:id="titreInput" layoutX="75.0" layoutY="229.0" prefHeight="31.0" prefWidth="242.0" promptText="Titre" styleClass="input-field" />
+        <TextField fx:id="isbnInput" layoutX="74.0" layoutY="136.0" prefHeight="31.0" prefWidth="242.0" promptText="ISBN" styleClass="input-field" />
+        <Label layoutX="76.0" layoutY="206.0" styleClass="label" text="Titre">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="editeurInput" layoutX="74.0" layoutY="318.0" prefHeight="31.0" prefWidth="242.0" promptText="Editeur" />
+        <TextField fx:id="anneeEditionInput" layoutX="74.0" layoutY="410.0" prefHeight="31.0" prefWidth="242.0" promptText="Année d'édition" />
+        <Label layoutX="76.0" layoutY="296.0" text="Editeur">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="76.0" layoutY="390.0" text="Année d'édition">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="74.0" layoutY="473.0" text="Année de première parution">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="anneeParutionInput" layoutX="74.0" layoutY="497.0" prefHeight="31.0" prefWidth="242.0" promptText="Année de première parution" />
+        <Label layoutX="405.0" layoutY="113.0" styleClass="label" text="Mots Clés (séparés par des virgules, en mettre entre 1 et 5)">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="motsClesInput" layoutX="405.0" layoutY="136.0" prefHeight="31.0" prefWidth="391.0" promptText="Mots clés" styleClass="input-field" />
+        <Label layoutX="405.0" layoutY="206.0" styleClass="label" text="Noms auteurs (séparés par des virgules)">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="prenomsInput" layoutX="405.0" layoutY="318.0" prefHeight="31.0" prefWidth="391.0" promptText="Prénoms" styleClass="input-field" />
+        <TextField fx:id="nomsInput" layoutX="405.0" layoutY="229.0" prefHeight="31.0" prefWidth="391.0" promptText="Noms" styleClass="input-field" />
+        <Label layoutX="407.0" layoutY="297.0" styleClass="label" text="Prénoms auteurs (séparés par des virgules)">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="datesNaissanceInput" layoutX="405.0" layoutY="410.0" prefHeight="31.0" prefWidth="391.0" promptText="Années de naissance" />
+        <Label layoutX="407.0" layoutY="387.0" text="Années de naissance auteurs (séparées par des virgules)">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+
+    </children>
+</AnchorPane>

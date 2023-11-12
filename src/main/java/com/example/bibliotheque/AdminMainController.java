@@ -19,6 +19,7 @@ public class AdminMainController extends ClientMainController {
     private SearchAdminController searchAdminController = null;
     private UtilisateursController utilisateursController = null;
     private EmpruntsAdminController empruntsAdminController = null;
+    private AddLivreController addLivreController = null;
 
     /* Menu Supprimer */
     @FXML
@@ -45,6 +46,19 @@ public class AdminMainController extends ClientMainController {
     }
 
     /* Menu Ajouter */
+    @FXML
+    protected void onAjouterLivreClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addLivreView.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        addLivreController = fxmlLoader.getController();
+        addLivreController.setAdminMainController(this);
+        addLivreController.setStage(this.stage);
+        stage.setTitle("Ajouter un livre");
+        Scene scene = new Scene(root1);
+        scene.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();       //open the new stage
+    }
 
     @FXML
     protected void onAjouterUtilisateurClick() {

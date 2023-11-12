@@ -54,6 +54,7 @@ public class Categorie {
             nombreEmprunts = rs.getInt("Nombre_Max_Emprunt_Ref");
         }
         rs.close();
+        prepStmt.close();
         return nombreEmprunts;
     }
 
@@ -68,6 +69,7 @@ public class Categorie {
             dureeEmprunts = rs.getInt("Durée_Max_Emprunt_Ref");
         }
         rs.close();
+        prepStmt.close();
         return dureeEmprunts;
     }
 }

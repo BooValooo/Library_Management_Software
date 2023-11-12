@@ -97,6 +97,7 @@ public class Emprunt {
         PreparedStatement prep_stmt = c.prepareStatement(query);
         prep_stmt.setInt(1, this.livreId);
         prep_stmt.executeUpdate();
+        prep_stmt.close();
 
         String queryTwo = "UPDATE Emprunt SET Rendu = 1, Date_Rendu = ? WHERE Id = ?";
         PreparedStatement prep_stmtTwo = c.prepareStatement(queryTwo);
@@ -112,6 +113,7 @@ public class Emprunt {
 
         prep_stmtTwo.setString(1,dateFormatee);
         prep_stmtTwo.executeUpdate();
+        prep_stmtTwo.close();
     }
 
 

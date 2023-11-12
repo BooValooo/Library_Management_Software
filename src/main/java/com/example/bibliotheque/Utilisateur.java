@@ -122,6 +122,7 @@ public class Utilisateur {
         }
 
         rs.close();
+        prep_stmt.close();
         return id;
     }
 
@@ -137,6 +138,7 @@ public class Utilisateur {
             duree = rs.getInt("Durée_Maximale_Emprunt");
         }
         rs.close();
+        prepStmt.close();
 
         LocalDate dateLimiteEmprunt = dateDebutEmprunt.plusDays(duree);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
@@ -156,6 +158,7 @@ public class Utilisateur {
             nombreEmprunts = rs.getInt("Nombre_Maximal_Emprunt");
         }
         rs.close();
+        prepStmt.close();
         return nombreEmprunts;
     }
 
@@ -171,6 +174,7 @@ public class Utilisateur {
             nombreEmprunts = rs.getInt(1);
         }
         rs.close();
+        prepStmt.close();
         return nombreEmprunts;
     }
 
@@ -185,6 +189,7 @@ public class Utilisateur {
             categorieName = rs.getString("Nom");
         }
         rs.close();
+        prepStmt.close();
         return categorieName;
     }
 
@@ -204,6 +209,7 @@ public class Utilisateur {
         prepStmt.setInt(8, this.id);
 
         int rowsAffected = prepStmt.executeUpdate();
+        prepStmt.close();
 
         // Met à jour la table d'identification (pour la connection à l'appli)
         String queryTwo = "UPDATE Identification SET Utilisateur_Mail = ? WHERE Utilisateur_Id = ?";
@@ -213,6 +219,7 @@ public class Utilisateur {
         prepStmtTwo.setInt(2,this.id);
 
         prepStmtTwo.executeUpdate();
+        prepStmtTwo.close();
 
         // Récupère des données qui vont nous permettre d'update les emprunts de l'utilisateur dont on vient de modifier le profil
         String queryGet = "SELECT * FROM Emprunt WHERE (Utilisateur_Id = ? AND Rendu = 0)";
@@ -242,8 +249,8 @@ public class Utilisateur {
             prepStmtThree.executeUpdate();
         }
 
-
-
+        rs.close();
+        prepStmtThree.close();
         return rowsAffected;
     }
 
@@ -261,6 +268,7 @@ public class Utilisateur {
         prepStmt.setInt(7, this.nombreMaxEmprunt);
 
         prepStmt.executeUpdate();
+        prepStmt.close();
 
         String queryTwo = "INSERT INTO Identification (Utilisateur_Id, Utilisateur_Mail, Hash_MdP) VALUES (?,?,?)";
         PreparedStatement prepStmtTwo = c.prepareStatement(queryTwo);
@@ -270,6 +278,7 @@ public class Utilisateur {
         prepStmtTwo.setString(3,"03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4");
 
         prepStmtTwo.executeUpdate();
+        prepStmtTwo.close();
     }
 
     // Retourne la date de radiation d'un utilisateur, s'il a été radié.
@@ -282,6 +291,8 @@ public class Utilisateur {
         if (rs.next()) {
             date = rs.getString("Date_De_Radiation");
         }
+        rs.close();
+        prepStmt.close();
         return date;
     }
 
@@ -299,5 +310,6 @@ public class Utilisateur {
         prepStmt.setString(2,dateFormatee);
 
         prepStmt.executeUpdate();
+        prepStmt.close();
     }
 }

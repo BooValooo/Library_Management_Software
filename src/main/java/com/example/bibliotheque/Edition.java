@@ -3,6 +3,7 @@ package com.example.bibliotheque;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
@@ -12,11 +13,11 @@ public class Edition {
     String editeur = null;
     Integer anneeEdition = null;
     String titre = null;
-    String motCle1 = null;
-    String motCle2 = null;
-    String motCle3 = null;
-    String motCle4 = null;
-    String motCle5 = null;
+    String motCle1 = "";
+    String motCle2 = "";
+    String motCle3 = "";
+    String motCle4 = "";
+    String motCle5 = "";
     Vector<String> auteurs = null;
 
 
@@ -120,16 +121,10 @@ public class Edition {
             while ( rs.next() ) {
                 String prenom = rs.getString("Prénom");
                 String nom  = rs.getString("Nom");
-
-                /*
-                System.out.println( "NAME = " + prenom + " " + nom );
-                System.out.println();
-                 */
-
                 auteurs.add(prenom + " " + nom);
-
             }
             rs.close();
+            prep_stmt.close();
             this.auteurs = auteurs;
             return auteurs;
         } catch (Exception e) {
@@ -156,6 +151,15 @@ public class Edition {
         }
 
         return sb.toString();
+    }
+
+    // Vérifie si une édition avec un ISBN donné existe déjà
+    public Boolean existeDeja(Connection c) throws SQLException {
+        String sql = "SELECT * FROM Edition WHERE ISBN = ?";
+        PreparedStatement preparedStatement = c.prepareStatement(sql);
+        preparedStatement.setInt(1,this.isbn);
+        ResultSet rs = preparedStatement.executeQuery();
+        return (rs.next());
     }
 }
 

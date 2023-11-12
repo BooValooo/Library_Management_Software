@@ -37,7 +37,7 @@
                 </Menu>
             <Menu mnemonicParsing="false" text="Ajouter">
               <items>
-                <MenuItem mnemonicParsing="false" text="Ajouter un nouveau livre" />
+                <MenuItem mnemonicParsing="false" onAction="#onAjouterLivreClick" text="Ajouter un nouveau livre" />
                   <MenuItem mnemonicParsing="false" onAction="#onAjouterUtilisateurClick" text="Ajouter un nouvel utilisateur" />
               </items>
             </Menu>
