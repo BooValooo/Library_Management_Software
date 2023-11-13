@@ -1,4 +1,4 @@
-Pour lancer l'application, executez simplement MainApplication.java.
+Pour lancer l'application, executez simplement MainApplication.java. Pour vous connecter en tant que client, utilisez l'adresse mail client@client.fr. Pour vous connecter en admin, utilisez root@root.fr. Dans les 2 cas, le mot de passe de connection est 1234.
 
 Si la connection à la base de donnée ne se réalise pas, il vous faudra peut-être vous rendre dans le fichier Controller.java pour modifier l'url de la base de données connectée à l'application.
 
