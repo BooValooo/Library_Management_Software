@@ -1,0 +1,5 @@
+Pour lancer l'application, executez simplement MainApplication.java.
+
+Si la connection à la base de donnée ne se réalise pas, il vous faudra peut-être vous rendre dans le fichier Controller.java pour modifier l'url de la base de données connectée à l'application.
+
+Cette application a été codée sous linux et fonctionne à l'aide de SQLite. Pour la faire fonctionner avec MySQL, il faudra encore se rendre dans Controller.Java et modifier le driver JDBC. Il faudra également se rendre dans build.gradle et changer les dépendances de gradle pour ajouter une dépendance MySQL.
